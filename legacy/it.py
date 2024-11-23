@@ -1246,7 +1246,7 @@ class World(Map):
                     #self.tiles[culture.centroid[0]][culture.centroid[1]].color = libtcod.green
 
         ## Clean up ideal_locs a bit
-        self.ideal_locs = filter(lambda x__y: self.tiles[x__y[0]][x__y[1]].culture and not self.tiles[x__y[0]][x__y[1]].blocks_mov, self.ideal_locs)
+        self.ideal_locs = list(filter(lambda x__y: self.tiles[x__y[0]][x__y[1]].culture and not self.tiles[x__y[0]][x__y[1]].blocks_mov, self.ideal_locs))
 
         g.game.add_message('Cultures created in {0:.02f} seconds'.format(time.time() - begin))
 
@@ -1380,7 +1380,7 @@ class World(Map):
             self.add_famous_object(obj=obj)
 
             # Object will be put inside a temple
-            housed_city = random.choice(filter(lambda city_: city_.get_culture() == culture, created_cities))
+            housed_city = random.choice(list(filter(lambda city_: city_.get_culture() == culture, created_cities)))
             temple = housed_city.get_building('Temple')
             obj.set_current_building(building=temple)
 
@@ -1402,7 +1402,7 @@ class World(Map):
             # cities_and_distances = [(city.distance_to(c), c) for c in created_cities if c != city]
             cities_and_distances = [(self.get_astar_distance_to(city.x, city.y, c.x, c.y), c) for c in created_cities if c != city]
 
-            cities_and_distances.sort()
+            cities_and_distances.sort(key=lambda tup: tup[0])
 
             for distance, other_city in cities_and_distances:
                 for resource in other_city.native_res:
@@ -4335,7 +4335,7 @@ def player_order_follow():
 
 def player_order_move():
 
-    figures = filter(lambda figure: figure.local_brain and figure.creature.is_available_to_act() and figure.creature.commander == g.player, g.M.creatures)
+    figures = list(filter(lambda figure: figure.local_brain and figure.creature.is_available_to_act() and figure.creature.commander == g.player, g.M.creatures))
     sq_size = int(round(math.sqrt(len(figures))))
     offset = int(sq_size/2)
 
@@ -7182,8 +7182,8 @@ class Culture:
         info = phys.creature_dict[race]
 
         # Gen names based on culture and dynasty
-        if sex == 1: firstname = lang.spec_cap(random.choice(self.language.vocab_m.values()))
-        else:        firstname = lang.spec_cap(random.choice(self.language.vocab_f.values()))
+        if sex == 1: firstname = lang.spec_cap(random.choice(list(self.language.vocab_m.values())))
+        else:        firstname = lang.spec_cap(random.choice(list(self.language.vocab_f.values())))
 
         if dynasty is not None:   lastname = dynasty.lastname
         else:                     lastname = lang.spec_cap(random.choice(self.language.vocab_n.values()))
@@ -7249,10 +7249,10 @@ class Culture:
     def create_initial_dynasty(self, faction, wx, wy, wife_is_new_dynasty=0):
         ''' Spits out a dynasty or two, used for to quickly setup new cities'''
         # Create's a dynasty for the leader and his wife
-        new_dynasty = Dynasty(lang.spec_cap(random.choice(self.language.vocab_n.values())), race=random.choice(self.races))
+        new_dynasty = Dynasty(lang.spec_cap(random.choice(list(self.language.vocab_n.values()))), race=random.choice(self.races))
 
         if wife_is_new_dynasty:
-            wife_dynasty = Dynasty(lang.spec_cap(random.choice(self.language.vocab_n.values())), race=new_dynasty.race)
+            wife_dynasty = Dynasty(lang.spec_cap(random.choice(list(self.language.vocab_n.values()))), race=new_dynasty.race)
         else:
             wife_dynasty = None
 

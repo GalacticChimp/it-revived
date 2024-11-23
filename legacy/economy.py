@@ -815,7 +815,7 @@ class AuctionHouse:
             self.last_price = mean_price_last_round
 
         # Update the mean price for this commodity by averaging over the last HIST_WINDOW_SIZE items
-        recent_prices = filter(lambda price: price is not None, self.price_history[-HIST_WINDOW_SIZE:])
+        recent_prices = list(filter(lambda price: price is not None, self.price_history[-HIST_WINDOW_SIZE:]))
         if recent_prices:
             self.recent_mean_price = int(round(sum(recent_prices)/len(recent_prices)))
 
