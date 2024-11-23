@@ -150,15 +150,15 @@ PHON_TO_ENG_EXAMPLES = {201:'"p"',
 # 113	ou		out		|	114	oi		toil
 
 ## ASCI nums for characters with accents
-#128 Ç 135 ç
-#144 É			130 é 136 ê 137 ë 138 è
-#142 Ä 143 Å	131 â 132 ä 133 à 134 å 160 á
-#				139 ï 140 î 141 ì 161 í
-#153 Ö			147 ô 148 ö 149 ò 162 ó
-#154 Ü			129 ü 150 û 151 ù 163 ú
-#146 Æ			145 æ
-#152 ÿ
-#165 Ñ			164 ñ
+#128 ï¿½ 135 ï¿½
+#144 ï¿½			130 ï¿½ 136 ï¿½ 137 ï¿½ 138 ï¿½
+#142 ï¿½ 143 ï¿½	131 ï¿½ 132 ï¿½ 133 ï¿½ 134 ï¿½ 160 ï¿½
+#				139 ï¿½ 140 ï¿½ 141 ï¿½ 161 ï¿½
+#153 ï¿½			147 ï¿½ 148 ï¿½ 149 ï¿½ 162 ï¿½
+#154 ï¿½			129 ï¿½ 150 ï¿½ 151 ï¿½ 163 ï¿½
+#146 ï¿½			145 ï¿½
+#152 ï¿½
+#165 ï¿½			164 ï¿½
 
 ## A way to capitalize those ASCII characters with accents (not handled by regular python .capitalize() method)
 SYMB_TO_CAPITAL = {chr(139):'I', chr(140):'I', chr(141):'I', chr(161):'I',
@@ -395,10 +395,10 @@ class Orthography:
             if roll(0, 1) == 1:
                 potential_c_rep = self.replace_grapheme(mapping=potential_c_rep, phoneme=211, old='th', new=chr(235))
                 potential_c_rep = self.replace_grapheme(mapping=potential_c_rep, phoneme=212, old='th', new=chr(235))
-            # Use ç in place of ch
+            # Use ï¿½ in place of ch
             if roll(0, 1) == 1:
                 potential_c_rep = self.replace_grapheme(mapping=potential_c_rep, phoneme=207, old='ch', new=chr(135))
-            # Use ƒ instead of sh
+            # Use ï¿½ instead of sh
             if roll(0, 1) == 1:
                 potential_c_rep = self.replace_grapheme(mapping=potential_c_rep, phoneme=215, old='sh', new=chr(159))
                 potential_c_rep = self.replace_grapheme(mapping=potential_c_rep, phoneme=216, old='zh', new=chr(159))
@@ -840,6 +840,6 @@ if __name__ == '__main__':
     lang = Language()
     
     for word in lang.vocab_m.values() + lang.vocab_n.values() + lang.vocab_f.values():
-        print word
+        print (word)
 
 

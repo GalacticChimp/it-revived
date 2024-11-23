@@ -1,7 +1,7 @@
 from __future__ import division
 from collections import Counter
 
-import libtcodpy as libtcod
+import tcod as libtcod
 import config as g
 import gen_languages as lang
 from helpers import join_list, looped_increment, trim

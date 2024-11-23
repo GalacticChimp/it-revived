@@ -17,7 +17,7 @@ def load_combat_data():
 
     file_path = os.path.join('data', 'combat_matrix.csv')
 
-    with open(file_path, 'rb') as csv_file:
+    with open(file_path, 'r') as csv_file:
         reader = csv.reader(csv_file)
 
         combat_matrix = {}

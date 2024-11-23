@@ -2,7 +2,7 @@ from __future__ import division
 import random
 from random import randint as roll
 
-import libtcodpy as libtcod
+import tcod as libtcod
 import config as g
 
 
@@ -86,7 +86,7 @@ class Building:
     def place_within(self, obj):
         ## Place an object within the building
         if not self.physical_property:
-            print self.get_name(), 'has no physical property!'
+            print (self.get_name(), 'has no physical property!')
             return
             # Choose a tile that is not blocked
         while 1:

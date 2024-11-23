@@ -132,4 +132,4 @@ def gen_creature_description(creature_name, creature_size=2):
 
 if __name__ == '__main__':
     for i in xrange(8):
-        print gen_creature_description('test') + '\n'
+        print (gen_creature_description('test') + '\n')

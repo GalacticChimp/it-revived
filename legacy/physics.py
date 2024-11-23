@@ -7,7 +7,7 @@ from collections import defaultdict
 
 import random
 from random import randint as roll
-import libtcodpy as libtcod
+import tcod as libtcod
 from helpers import join_list, ct, infinite_defaultdict
 
 import economy as econ

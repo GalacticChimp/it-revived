@@ -1,0 +1,74 @@
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1030 -             __init__() 
+   DEBUG - font search path [WindowsPath('C:/Programming/Open Source/Iron Testament/legacy/.venv/Lib/site-packages/matplotlib/mpl-data/fonts/ttf'), WindowsPath('C:/Programming/Open Source/Iron Testament/legacy/.venv/Lib/site-packages/matplotlib/mpl-data/fonts/afm'), WindowsPath('C:/Programming/Open Source/Iron Testament/legacy/.venv/Lib/site-packages/matplotlib/mpl-data/fonts/pdfcorefonts')]
+font_manager.py:1584 -    _load_fontmanager() 
+   INFO - generated new fontManager
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json

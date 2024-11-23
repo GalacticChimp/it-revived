@@ -7,7 +7,7 @@ import os
 import yaml
 from collections import defaultdict
 
-import libtcodpy as libtcod
+import tcod as libtcod
 
 YAML_DIRECTORY = os.path.join(os.getcwd(), 'data')
 

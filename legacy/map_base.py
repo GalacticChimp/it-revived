@@ -3,7 +3,7 @@ from __future__ import division
 from math import ceil
 from collections import defaultdict
 
-import libtcodpy as libtcod
+import tcod as libtcod
 
 class Chunk:
     def __init__(self, x, y):

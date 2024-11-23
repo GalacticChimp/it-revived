@@ -512,13 +512,13 @@ if __name__ == '__main__':
     pantheon = Pantheon(astrology)
 
     for god in pantheon.gods:
-        print god.full_description(), '\n ------------------'
+        print (god.full_description(), '\n ------------------')
 
     cm = CreationMyth(creator=pantheon.gods[0], pantheon=pantheon)
-    print ' '
+    print (' ')
     cm.create_myth()
     for paragraph in cm.story_text:
-        print paragraph
+        print (paragraph)
 
 
 

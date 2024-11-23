@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from __future__ import division
-import libtcodpy as libtcod
+import tcod as libtcod
 import random
 from random import randint as roll
 import math
@@ -1246,7 +1246,7 @@ class World(Map):
                     #self.tiles[culture.centroid[0]][culture.centroid[1]].color = libtcod.green
 
         ## Clean up ideal_locs a bit
-        self.ideal_locs = filter(lambda (x, y): self.tiles[x][y].culture and not self.tiles[x][y].blocks_mov, self.ideal_locs)
+        self.ideal_locs = filter(lambda x__y: self.tiles[x__y[0]][x__y[1]].culture and not self.tiles[x__y[0]][x__y[1]].blocks_mov, self.ideal_locs)
 
         g.game.add_message('Cultures created in {0:.02f} seconds'.format(time.time() - begin))
 
@@ -5541,7 +5541,7 @@ class Creature:
             elif answer_type == 'no answer':
                 self.nonverbal_behavior('does not answer')
             elif answer_type == 'busy':
-                self.say('I\m sorry, I am busy right now.')
+                self.say('I\'m sorry, I am busy right now.')
 
 
     def get_valid_questions(self, target):

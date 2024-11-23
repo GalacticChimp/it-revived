@@ -1,6 +1,6 @@
 from __future__ import division
 import math
-import libtcodpy as libtcod
+import tcod as libtcod
 import random
 from random import randint as roll
 from collections import Counter, defaultdict

@@ -6,7 +6,7 @@ import time
 from collections import defaultdict
 import logging
 
-import libtcodpy as libtcod
+import tcod as libtcod
 from dijkstra import Dijmap
 from helpers import *
 import config as g

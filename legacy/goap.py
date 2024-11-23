@@ -6,7 +6,7 @@ from collections import defaultdict
 from time import time
 from itertools import chain
 
-import libtcodpy as libtcod
+import tcod as libtcod
 
 from helpers import infinite_defaultdict, libtcod_path_to_list, join_list, ct_collective
 from traits import TRAIT_INFO
@@ -312,7 +312,7 @@ class BehaviorBase:
             ancestor = ancestor.parent
         # If loop is not exited with break statement...
         else:
-            print 'made it through all ancestors without finding request'
+            print ('made it through all ancestors without finding request')
 
 
 class BuyItem(BehaviorBase):
@@ -398,9 +398,9 @@ class MoveToLocation(BehaviorBase):
             self.entity.w_move_along_path(path=self.entity.world_brain.path)
 
         elif self.full_path:
-            print '{0} has no path to take, although the behavior has one!'.format(self.entity.fulltitle())
+            print ('{0} has no path to take, although the behavior has one!'.format(self.entity.fulltitle()))
         elif self.full_path:
-            print 'Both {0} and the behavior have no path to take!'.format(self.entity.fulltitle())
+            print ('Both {0} and the behavior have no path to take!'.format(self.entity.fulltitle()))
 
     def get_best_path(self, initial_location, target_location):
         ''' Find a path between 2 points, but take roads if both points happen to be cities '''
@@ -415,7 +415,7 @@ class MoveToLocation(BehaviorBase):
             full_path = libtcod_path_to_list(path_map=g.WORLD.path_map)
 
         if not full_path:
-            print '{0} -- has no full path to get from {1} to {2}'.format(self.entity.fulltitle(), self.initial_location, self.target_location)
+            print ('{0} -- has no full path to get from {1} to {2}'.format(self.entity.fulltitle(), self.initial_location, self.target_location))
 
         return full_path
 
@@ -471,7 +471,7 @@ class GatherCommodityBehavior(BehaviorBase):
         _, closest_resource_location = g.WORLD.get_closest_resource(x=current_location[0], y=current_location[1], resource=self.commodity)
 
         if closest_resource_location is None:
-            print self.entity.fullname(), 'at', current_location, 'going for', self.commodity, 'COULD NOT FIND CLOSEST'
+            print (self.entity.fullname(), 'at', current_location, 'going for', self.commodity, 'COULD NOT FIND CLOSEST')
 
         return closest_resource_location
 
@@ -922,14 +922,14 @@ if __name__ == '__main__':
 
     begin = time()
     best_path = test_entity_normal.world_brain.set_goal(goal_state=HaveItem(item_name=GOAL_ITEM, entity=test_entity_normal), reason='because')
-    print 'done in {0}'.format(time() - begin)
+    print ('done in {0}'.format(time() - begin))
     #print [b.behavior for b in best_path]
 
-    print ''
+    print ('')
 
     begin = time()
     best_path = test_entity_amoral.world_brain.set_goal(goal_state=HaveItem(item_name=GOAL_ITEM, entity=test_entity_amoral), reason='because')
-    print 'done in {0}'.format(time() - begin)
+    print ('done in {0}'.format(time() - begin))
 
     best_path = test_entity_moral.world_brain.set_goal(goal_state=CommoditiesAreUnloaded(target_city='debug', goods='lol', entity=test_entity_moral), reason='because')
     #print [b.behavior for b in best_path]

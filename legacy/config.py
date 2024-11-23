@@ -1,5 +1,5 @@
 from __future__ import division
-import libtcodpy as libtcod
+import tcod as libtcod
 import logging
 
 # Code to detect screen resolution (libtcod's doesn't work for some reason?)
@@ -8,7 +8,7 @@ try:
     user32 = windll.user32
     SCREEN_RES = ( user32.GetSystemMetrics(0), user32.GetSystemMetrics(1) )
 except:
-    print 'Cannot auto-size resolution, fall back to default...'
+    print ('Cannot auto-size resolution, fall back to default...')
     SCREEN_RES = (1280, 720)
 
 

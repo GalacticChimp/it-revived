@@ -2,7 +2,7 @@ from __future__ import division
 import yaml
 
 with open('data/traits.yml') as t:
-	raw_traits = yaml.load(t)
+	raw_traits = yaml.safe_load(t)
 	TRAIT_INFO = raw_traits['traits']
 	CULTURE_TRAIT_INFO = raw_traits['culture_traits']
 

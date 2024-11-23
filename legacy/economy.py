@@ -17,7 +17,7 @@ import config as g
 try:
     import matplotlib.pyplot as plt
 except:
-    print 'Can\'t load matplotlib - no access to graphs'
+    print ('Can\'t load matplotlib - no access to graphs')
 
 
 HIST_WINDOW_SIZE = 5 # Amount of trades auctions keep in memory to determine avg price (used by agents)
@@ -87,7 +87,7 @@ plot_colors = {'food':(.3, .8, .3), 'flax':(1, .5, 1), 'clay':(.25, 0, .5), 'woo
 
 def economy_test_run():
     native_resources = [resource.name for resource in data.commodity_manager.resources]
-    print native_resources
+    print (native_resources)
     economy = Economy(native_resources=native_resources, local_taxes=5, owner=None)
 
     for i in xrange(6):
@@ -122,9 +122,9 @@ def economy_test_run():
         economy.run_simulation()
 
     for token, auction in economy.auctions.iteritems():
-        print token, auction.price_history
+        print (token, auction.price_history)
 
-    print economy.get_valid_agent_types()
+    print (economy.get_valid_agent_types())
 
 
 def check_strategic_resources(nearby_resources):
