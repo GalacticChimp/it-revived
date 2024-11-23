@@ -241,7 +241,7 @@ def get_border_tiles_8(x, y):
 
 def libtcod_path_to_list(path_map):
     ''' get a libtcod path into a list '''
-    return [libtcod.path_get(path_map, i) for i in xrange(libtcod.path_size(path_map))]
+    return [libtcod.path_get(path_map, i) for i in range(libtcod.path_size(path_map))]
 
 
 def in_circle(center_x, center_y, radius, x, y):
@@ -255,8 +255,8 @@ def is_circle_radius(center_x, center_y, radius, x, y):
 def get_circle_tiles(center_x, center_y, radius):
     ''' Generator to create tiles in a circle and generate each once and only once '''
 
-    for x in xrange(center_x - radius, center_x + radius + 1):
-        for y in xrange(center_y - radius, center_y + radius + 1):
+    for x in range(center_x - radius, center_x + radius + 1):
+        for y in range(center_y - radius, center_y + radius + 1):
             if (center_x - x) ** 2 + (center_y - y) ** 2 <= radius ** 2:
                 yield (x, y)
 
@@ -264,9 +264,9 @@ def get_circle_tiles(center_x, center_y, radius):
     # yield (center_x - radius, center_y)
     # yield (center_x + radius, center_y)
     # # Loop through the tiles in one-quarter of the circle
-    # for x in xrange(center_x - radius, center_x + 1):
+    # for x in range(center_x - radius, center_x + 1):
     #     ydist = int(math.sqrt(radius**2 - (center_x - x)**2))
-    #     for y in xrange(center_y - ydist, center_y):
+    #     for y in range(center_y - ydist, center_y):
     #         # Yield that tile, and then any other "opposite" tiles in any of the other 3 quarters of the circle
     #         yield (x, y)
     #         if x != center_x and y != center_y:     yield (center_x + (center_x - x), y + ydist)
@@ -275,7 +275,7 @@ def get_circle_tiles(center_x, center_y, radius):
 
 def get_sorted_circle_tiles(cx, cy, r):
     ''' Gets a list of tiles in the circle, sorted by distance to the center (starting in the center and radiating outwards '''
-    circle_tiles = [(x, y) for x in xrange(cx - r, cx + r + 1) for y in xrange(cy - r, cy + r + 1) if (cx - x) ** 2 + (cy - y) ** 2 <= r ** 2]
+    circle_tiles = [(x, y) for x in range(cx - r, cx + r + 1) for y in range(cy - r, cy + r + 1) if (cx - x) ** 2 + (cy - y) ** 2 <= r ** 2]
     # Sort tiles based on distance to center
     circle_tiles.sort(key=lambda pos: get_distance_to(pos[0], pos[1], cx, cy))
 

@@ -87,7 +87,7 @@ def gen_creature_description(creature_name, creature_size=2):
     possible_flavor_text_values = ['eyes', 'teeth', 'ears', 'face']
     flavor_text_values = []
 
-    for i in xrange(2):
+    for i in range(2):
         flavor_text = describe_feature(possible_flavor_text_values.pop(roll(0, len(possible_flavor_text_values)-1)))
         flavor_text_values.append(flavor_text)
 
@@ -131,5 +131,5 @@ def gen_creature_description(creature_name, creature_size=2):
 
 
 if __name__ == '__main__':
-    for i in xrange(8):
+    for i in range(8):
         print (gen_creature_description('test') + '\n')

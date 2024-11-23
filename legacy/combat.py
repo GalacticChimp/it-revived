@@ -32,7 +32,7 @@ def load_combat_data():
             else:
                 current_move = row[0]
 
-                for i in xrange(len(row)-1):
+                for i in range(len(row)-1):
                     column_index = i + 1
                     probs = row[column_index]
 
@@ -62,7 +62,7 @@ def load_combat_data():
 
     combat_file_path = os.path.join('data', 'combat_moves.yml')
     with open(combat_file_path) as yaml_file:
-        combat_move_info = yaml.load(yaml_file)
+        combat_move_info = yaml.safe_load(yaml_file)
 
         for m in combat_move_info['armed_melee']:
 

@@ -573,7 +573,7 @@ def import_object_yml(file_path):
     for ofile in object_files:
 
         with open(os.path.join(file_path, ofile)) as yaml_file:
-            objects = yaml.load(yaml_file)
+            objects = yaml.safe_load(yaml_file)
 
         for obj in objects:
 

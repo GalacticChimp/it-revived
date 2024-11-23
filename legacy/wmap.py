@@ -342,14 +342,14 @@ class Wmap(Map):
         hm = libtcod.heightmap_new(w=self.width, h=self.height)
 
         # Set initial heightmap values
-        for x in xrange(self.width):
-            for y in xrange(self.height):
+        for x in range(self.width):
+            for y in range(self.height):
                 # Set the default value
                 libtcod.heightmap_set_value(hm=hm, x=x, y=y, value=initial_height)
 
 
         #### RANDOM HILLS ####
-        for i in xrange(iterations):
+        for i in range(iterations):
             x, y = roll(mborder, self.width-1-mborder), roll(mborder, self.height-1-mborder)
             radius = roll(minr, maxr)
             height = roll(minh, maxh)
@@ -369,10 +369,10 @@ class Wmap(Map):
         div_amt = 50
 
         # Loop through everything and create tiles
-        for y in xrange(self.height):
+        for y in range(self.height):
             # Make an empty list of tile rows
             row = []
-            for x in xrange(self.width):
+            for x in range(self.width):
                 # Anything outside this range will be unwalkable
                 if (0 < x < self.width - 1) and (0 < y < self.height - 1):      tile = Tile(blocks_mov=False)
                 else:                                                           tile = Tile(blocks_mov=True, blocks_vis=True)
@@ -538,7 +538,7 @@ class Wmap(Map):
         #
         #     ''' Why doesn't this always work?
         #     if building.b_type == 'Tavern':
-        #         for i in xrange(roll(1, 3)):
+        #         for i in range(roll(1, 3)):
         #             human = self.site.create_inhabitant(sex=1, born=time_cycle.current_year-roll(16, 35), char='o', dynasty=None, important=0, house=None)
         #             building.place_within(obj=human)
         #     '''
@@ -576,8 +576,8 @@ class Wmap(Map):
         #         new_building.current_workers[0].creature.economy_agent = good_producer
         #
         #
-        #         for x in xrange(work_tiles.x1, work_tiles.x2 + 1):
-        #             for y in xrange(work_tiles.y1, work_tiles.y2 + 1):
+        #         for x in range(work_tiles.x1, work_tiles.x2 + 1):
+        #             for y in range(work_tiles.y1, work_tiles.y2 + 1):
         #                 new_building.physical_property.append((x, y))
         #                 self.wmap.tiles[x][y].building = new_building
         #
@@ -589,8 +589,8 @@ class Wmap(Map):
         #         # And will not place employee in house
         #         household = self.site.create_building(zone='residential', type_='house', template='TEST', professions=[], inhabitants=[new_building.current_workers[0]], tax_status='commoner')
         #
-        #         for x in xrange(home_tiles.x1, home_tiles.x2 + 1):
-        #             for y in xrange(home_tiles.y1, home_tiles.y2 + 1):
+        #         for x in range(home_tiles.x1, home_tiles.x2 + 1):
+        #             for y in range(home_tiles.y1, home_tiles.y2 + 1):
         #                 household.physical_property.append((x, y))
         #                 self.wmap.tiles[x][y].building = household
         #
@@ -644,8 +644,8 @@ class Wmap(Map):
 
     def initialize_fov(self):
         #create the FOV map, according to the generated map
-        for y in xrange(self.width):
-            for x in xrange(self.height):
+        for y in range(self.width):
+            for x in range(self.height):
                 libtcod.map_set_properties(self.fov_map, x, y, not self.tiles[x][y].blocks_vis, not self.tiles[x][y].blocks_mov)
 
         for obj in self.objects + self.creatures:
@@ -722,13 +722,13 @@ class Wmap(Map):
 
         sx, sy = x, y
 
-        for i in xrange(height):
+        for i in range(height):
             sx += 1
             #if self.is_val_xy((sx, sy)):
             #    self.tiles[sx][sy].set_shadow(amount=.3)
 
-        for xx in xrange(sx-radius, sx+radius+1):
-            for yy in xrange(sy-radius, sy+radius+1):
+        for xx in range(sx-radius, sx+radius+1):
+            for yy in range(sy-radius, sy+radius+1):
                 if in_circle(center_x=sx, center_y=sy, radius=radius, x=xx, y=yy) and self.is_val_xy((xx, yy)):
                     amount = random.choice(in_circle_shading)
                     self.tiles[xx][yy].set_shadow(amount=amount)
@@ -806,8 +806,8 @@ class Wmap(Map):
         ''' Add some vegetation to the map - should eventually vary by biome type '''
         begin = time.time()
         # Loop through entire map
-        for x in xrange(self.width - 2):
-            for y in xrange(self.height - 2):
+        for x in range(self.width - 2):
+            for y in range(self.height - 2):
                 if not self.tile_blocks_mov(x, y) and self.tiles[x][y].surface == 'ground' and self.tiles[x][y].zone in (None, 'wilderness'):
                     # Not using actual "Tree" object for now; make it part of the terrain (less objects to track)
                     if roll(1, 1000) <= cfg['small_tree_chance']:
@@ -910,8 +910,8 @@ class Wmap(Map):
         wborder = self.width - 1 - cfg['map_pad']
         hborder = self.height - 1 - cfg['map_pad']
 
-        for x in xrange(self.width):
-            for y in xrange(self.height):
+        for x in range(self.width):
+            for y in range(self.height):
                 # Configuration can choose a certain "padding" of a certain cell type for the map edge
                 if (cfg['map_pad'] < x < wborder) and (cfg['map_pad'] < y < hborder):
                     # If it meets the padding criteria, seed the cells
@@ -931,10 +931,10 @@ class Wmap(Map):
         g.game.add_message('Seed cell automata: %.2f' %(time.time() - begin))
         begin = time.time()
         # Smoothing happens here
-        for r in xrange(cfg['repetitions']):
+        for r in range(cfg['repetitions']):
             # Run throught entire map
-            for y in xrange(self.height):
-                for x in xrange(self.width):
+            for y in range(self.height):
+                for x in range(self.width):
                     if self.tiles[x][y].zone in (None, 'wilderness') and self.tiles[x][y].surface == 'ground':
                         walls = 0
                         floors = 0
@@ -969,8 +969,8 @@ class Wmap(Map):
             darker_color = libtcod.color_lerp(cfg['blocks_mov_color'], libtcod.black, .2)
 
             hit_rock = 0
-            for y in xrange(self.height):
-                for x in xrange(self.width):
+            for y in range(self.height):
+                for x in range(self.width):
                     # Hit a tile where Cellular automata placed a rock
                     if self.tiles[x][y].zone in (None, 'wilderness') and self.tiles[x][y].surface == 'ground' and self.tiles[x][y].blocks_vis:
                         if hit_rock == 0:
@@ -1003,8 +1003,8 @@ class Wmap(Map):
 
         ## This will just color them (no shading)
         elif cfg['blocks_mov_color']:
-            for y in xrange(self.height):
-                for x in xrange(self.width):
+            for y in range(self.height):
+                for x in range(self.width):
                     if self.tiles[x][y].blocks_vis:
                         self.tiles[x][y].set_color(color=cfg['blocks_mov_color'])
                         self.tiles[x][y].surface = cfg['blocks_mov_surface']
@@ -1017,8 +1017,8 @@ class Wmap(Map):
         def do_fill(tile):
             tile.tmp_flag = 1
         # Check the map for any seperate pockets of open cells
-        for x in xrange(self.width):
-            for y in xrange(self.height):
+        for x in range(self.width):
+            for y in range(self.height):
                 if not self.tile_blocks_mov(x, y) and not self.tiles[x][y].tmp_flag:
                     filled_tiles = floodfill(fmap=self, x=x, y=y, do_fill=do_fill, do_fill_args=[], is_border=lambda tile: tile.blocks_mov or tile.tmp_flag)
 
@@ -1062,8 +1062,8 @@ class Wmap(Map):
 
         ## Find those points in a circular pattern
         unordered_points = []
-        for x in xrange(center_x-radius, center_x+radius+1):
-            for y in xrange(center_y-radius, center_y+radius+1):
+        for x in range(center_x-radius, center_x+radius+1):
+            for y in range(center_y-radius, center_y+radius+1):
                 if self.is_val_xy((x, y)) and is_circle_radius(center_x=center_x, center_y=center_y, radius=radius, x=x, y=y):
                     unordered_points.append((x, y))
 
@@ -1097,7 +1097,7 @@ class Wmap(Map):
                     # Will expand a bit each turn
                     srange += 5
                     # Check a certain range of tiles
-                    for iteration in xrange(srange*srange):
+                    for iteration in range(srange*srange):
                         # Get a random tile which is srange away from the current patrol route
                         xx, yy = roll(px-srange, px+srange), roll(py-srange, py+srange)
                         if self.is_val_xy((xx, yy)) and not self.tile_blocks_mov(x=xx, y=yy): # and (not cleaned_patrol_route or (cleaned_patrol_route and self.get_astar_distance_to(xx, yy, cleaned_patrol_route[0][0], cleaned_patrol_route[0][0]))):
@@ -1123,7 +1123,7 @@ class PathNode:
 
     def connect(self, other, n_div, div_mag, wmap):
         coords = [(self.x, self.y)]
-        for n in xrange(1, n_div):
+        for n in range(1, n_div):
             xc = int(round(self.x + n * (other.x - self.x) / n_div)) + roll(-div_mag, div_mag)
             yc = int(round(self.y + n * (other.y - self.y) / n_div)) + roll(-div_mag, div_mag)
             coords.append((xc, yc))
@@ -1131,15 +1131,15 @@ class PathNode:
 
         ## Go through list of coords and draw a line coord to coord. Since there was
         ## some randomization as we split up the line, it adds some windyness to the roads
-        for n in xrange(len(coords) - 1):
+        for n in range(len(coords) - 1):
             cur_x, cur_y = coords[n]
             next_x, next_y = coords[n + 1]
             libtcod.line_init(cur_x, cur_y, next_x, next_y)
 
             nx, ny = cur_x, cur_y
             while nx is not None:
-                for i in xrange(self.size):
-                    for j in xrange(self.size):
+                for i in range(self.size):
+                    for j in range(self.size):
                         if wmap.is_val_xy((nx + i, ny + j)) and wmap.tiles[nx+i][ny+j].surface != 'road':
                         #if wmap.tiles[nx+i][ny+j].color != libtcod.cyan:
                             wmap.tiles[nx + i][ny + j].make_road('paved')
@@ -1158,7 +1158,7 @@ class PathNode:
         ## Find x closest neighbors
         num_neighbors = len(self.neighbors)
         if num_neighbors < num:
-            for i in xrange(num - num_neighbors):
+            for i in range(num - num_neighbors):
                 closest_dist = 10000
                 closest_node = None
 
@@ -1185,7 +1185,7 @@ class StartingNode(PathNode):
 
     def find_closest_neighbors(self, num, nodes):
         ## Find x closest neighbors
-        for i in xrange(num):
+        for i in range(num):
             closest_dist = 10000
             closest_node = None
 
@@ -1204,8 +1204,8 @@ class StartingNode(PathNode):
         libtcod.line_init(self.x, self.y, other.x, other.y)
         nx, ny = self.x, self.y
         while nx is not None:
-            for i in xrange(self.size):
-                for j in xrange(self.size):
+            for i in range(self.size):
+                for j in range(self.size):
                     wmap.tiles[nx + i][ny + j].make_road('paved')
 
             nx, ny = libtcod.line_step()
@@ -1298,8 +1298,8 @@ class CityMapGenerator:
         def do_fill(tile):
             tile.zone = 'undeveloped'
 
-        for i in xrange(self.wmap.width):
-            for j in xrange(self.wmap.height):
+        for i in range(self.wmap.width):
+            for j in range(self.wmap.height):
                 if self.wmap.tiles[i][j].zone not in border_zones:
                     recently_filled = floodfill(fmap=self.wmap, x=i, y=j, do_fill=do_fill, do_fill_args=[], is_border=lambda tile: tile.zone in border_zones)
 
@@ -1366,8 +1366,8 @@ class CityMapGenerator:
             self.wmap.tiles[x][y].zone = zone
 
             usable = True
-            for i in xrange(x - INITIAL_BLDG_CHK, x + INITIAL_BLDG_CHK + 1):
-                for j in xrange(y - INITIAL_BLDG_CHK, y + INITIAL_BLDG_CHK + 1):
+            for i in range(x - INITIAL_BLDG_CHK, x + INITIAL_BLDG_CHK + 1):
+                for j in range(y - INITIAL_BLDG_CHK, y + INITIAL_BLDG_CHK + 1):
                     if self.wmap.tiles[i][j].surface in DEVELOPED_SURFACES or not self.wmap.is_val_xy((i, j)):
                         usable = False
                         undeveloped_spaces.remove((x, y))
@@ -1399,7 +1399,7 @@ class CityMapGenerator:
                     # North
                     if 'n' in expansion_dirs:
                         expand = True
-                        for s in xrange(newrect.x1, newrect.x2 + 1):
+                        for s in range(newrect.x1, newrect.x2 + 1):
                             if self.wmap.tiles[s][newrect.y1 - 1].surface in DEVELOPED_SURFACES:
                                 expand = False
                                 expansion_dirs.remove('n')
@@ -1409,7 +1409,7 @@ class CityMapGenerator:
                             ## South
                     if 's' in expansion_dirs:
                         expand = True
-                        for s in xrange(newrect.x1, newrect.x2 + 1):
+                        for s in range(newrect.x1, newrect.x2 + 1):
                             if self.wmap.tiles[s][newrect.y2 + 1].surface in DEVELOPED_SURFACES:
                                 expand = False
                                 expansion_dirs.remove('s')
@@ -1419,7 +1419,7 @@ class CityMapGenerator:
                             ## East
                     if 'e' in expansion_dirs:
                         expand = True
-                        for t in xrange(newrect.y1, newrect.y2 + 1):
+                        for t in range(newrect.y1, newrect.y2 + 1):
                             if self.wmap.tiles[newrect.x2 + 1][t].surface in DEVELOPED_SURFACES:
                                 expand = False
                                 expansion_dirs.remove('e')
@@ -1429,7 +1429,7 @@ class CityMapGenerator:
                             ## West
                     if 'w' in expansion_dirs:
                         expand = True
-                        for t in xrange(newrect.y1, newrect.y2 + 1):
+                        for t in range(newrect.y1, newrect.y2 + 1):
                             if self.wmap.tiles[newrect.x1 - 1][t].surface in DEVELOPED_SURFACES:
                                 expand = False
                                 expansion_dirs.remove('w')
@@ -1439,8 +1439,8 @@ class CityMapGenerator:
                 #### Done expanding #######
 
                 ## Add walls to edge of building and floor to the floor
-                for q in xrange(newrect.x1, newrect.x2 + 1):
-                    for r in xrange(newrect.y1, newrect.y2 + 1):
+                for q in range(newrect.x1, newrect.x2 + 1):
+                    for r in range(newrect.y1, newrect.y2 + 1):
                         ## Add wall or floor
                         if q in [newrect.x1, newrect.x2] or r in [newrect.y1, newrect.y2]:
                             self.wmap.tiles[q][r].make_wall(building_color)
@@ -1541,7 +1541,7 @@ class CityMapGenerator:
     #
     #         ''' Why doesn't this always work?
     #         if building.b_type == 'Tavern':
-    #             for i in xrange(roll(1, 3)):
+    #             for i in range(roll(1, 3)):
     #                 human = self.site.create_inhabitant(sex=1, born=time_cycle.current_year-roll(16, 35), char='o', dynasty=None, important=0, house=None)
     #                 building.place_within(obj=human)
     #         '''
@@ -1605,7 +1605,7 @@ class CityMapGenerator:
 
         ## Add some schmoes to recruit
         #for tavern in taverns:
-        #    for i in xrange(2):
+        #    for i in range(2):
         #        schmoe = self.site.create_inhabitant(sex=1, born=time_cycle.current_year-roll(16, 35), char='o', dynasty=None, important=0, house=None)
         #        tavern.place_within(obj=schmoe)
 
@@ -1694,8 +1694,8 @@ class CityMapGenerator:
     def make_municipal_bldg(self, x, y, w, h, road_thickness, building_info):
         ''' Municipal buildings are government-owned '''
         physical_property = []
-        for i in xrange(x, x + w):
-            for j in xrange(y, y + h):
+        for i in range(x, x + w):
+            for j in range(y, y + h):
                 self.wmap.tiles[i][j].zone = 'municipal'
                 self.wmap.tiles[i][j].building = building_info
                 physical_property.append((i, j))
@@ -1765,8 +1765,8 @@ class CityMapGenerator:
 
         avoid_node_size = 15
 
-        for x in xrange(num_roads):
-            for y in xrange(num_avenues):
+        for x in range(num_roads):
+            for y in range(num_avenues):
 
                 xoff = roll(-disorg, disorg)
                 yoff = roll(-disorg, disorg)

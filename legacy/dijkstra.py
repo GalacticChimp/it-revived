@@ -40,7 +40,7 @@ class Dijmap:
         ## The represented map that we draw from
         self.dmrange = dmrange
 
-        self.empty_map = [[None for y in xrange(sourcemap.height)] for x in xrange(sourcemap.width)]
+        self.empty_map = [[None for y in range(sourcemap.height)] for x in range(sourcemap.width)]
 
         self.nodes = []
         self.dmap = None

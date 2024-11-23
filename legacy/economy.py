@@ -90,7 +90,7 @@ def economy_test_run():
     print (native_resources)
     economy = Economy(native_resources=native_resources, local_taxes=5, owner=None)
 
-    for i in xrange(6):
+    for i in range(6):
         for resource in data.commodity_manager.resources:
             if resource.name != 'food' and resource.name != 'flax':
                 economy.add_agent_based_on_token(resource.name)
@@ -107,7 +107,7 @@ def economy_test_run():
                 economy.add_agent_based_on_token(resource.name)
                 economy.add_agent_based_on_token(resource.name)
 
-    for i in xrange(4):
+    for i in range(4):
         for good in data.commodity_manager.goods:
             if good.name == 'flax clothing':
                 economy.add_agent_based_on_token(good.name)
@@ -117,7 +117,7 @@ def economy_test_run():
                 economy.add_agent_based_on_token(good.name)
                 economy.add_agent_based_on_token(good.name)
 
-    for i in xrange(20):
+    for i in range(20):
         #print '------------', i, '--------------'
         economy.run_simulation()
 
@@ -1182,7 +1182,7 @@ class Economy:
         overall_bid_history = []
         overall_sell_history = []
         # Bad hack to transpose matix so plot() works correctly
-        for i in xrange(len(self.auctions['food'].price_history)):
+        for i in range(len(self.auctions['food'].price_history)):
             overall_history.append([])
             overall_bid_history.append([])
             overall_sell_history.append([])

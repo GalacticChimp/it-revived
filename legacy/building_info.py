@@ -162,8 +162,8 @@ class Building:
         building_size = (roll(15, 20), roll(15, 20))
         '''
         ## Make a nice rectangle, with walls at the corners
-        for q in xrange(building_center[0], building_center[0] + building_size[0] + 1):
-            for r in xrange(building_center[1], building_center[1] + building_size[1] + 1):
+        for q in range(building_center[0], building_center[0] + building_size[0] + 1):
+            for r in range(building_center[1], building_center[1] + building_size[1] + 1):
                 g.M.tiles[q][r].building = self
                 self.physical_property.append((q, r))
                 ## Add wall or floor
@@ -210,8 +210,8 @@ class Building:
                         g.M.make_door(x=x, y=y, floor_type='dirt')
 
         else:
-            for x in xrange(rect.x1, rect.x2 + 1):
-                for y in xrange(rect.y1, rect.y2 + 1):
+            for x in range(rect.x1, rect.x2 + 1):
+                for y in range(rect.y1, rect.y2 + 1):
                     self.physical_property.append((x, y))
                     self.usemap.tiles[x][y].building = self
 
@@ -221,8 +221,8 @@ class Building:
                         self.usemap.tiles[x][y].make_floor(floor_type=floor)
 
     def add_physical_property_rect(self, physical_property_rect):
-        for x in xrange(physical_property_rect.x1, physical_property_rect.x2 + 1):
-            for y in xrange(physical_property_rect.y1, physical_property_rect.y2 + 1):
+        for x in range(physical_property_rect.x1, physical_property_rect.x2 + 1):
+            for y in range(physical_property_rect.y1, physical_property_rect.y2 + 1):
                 self.physical_property.append((x, y))
                 g.M.tiles[x][y].building = self
 

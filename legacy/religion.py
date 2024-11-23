@@ -30,10 +30,10 @@ def create_astronomy():
     available_moon_colors = moon_colors[:]
     available_sun_colors = moon_colors[:]
 
-    for i in xrange(num_moons):
+    for i in range(num_moons):
         moons.append(available_moon_colors.pop(roll(0, len(available_moon_colors)-1)))
 
-    for i in xrange(num_suns):
+    for i in range(num_suns):
         suns.append(available_sun_colors.pop(roll(0, len(available_sun_colors)-1)))
 
     return moons, suns
@@ -229,7 +229,7 @@ class Pantheon:
 
     def create_nature_gods(self, num_nature_gods):
         # Create misc gods
-        for i in xrange(num_nature_gods):
+        for i in range(num_nature_gods):
             sphere = random.choice([s for s in natural_spheres if s in self.available_spheres])
             self.available_spheres.remove(sphere)
 
@@ -246,7 +246,7 @@ class Pantheon:
 
     def create_misc_gods(self, num_misc_gods):
         # Create misc gods
-        for i in xrange(num_misc_gods):
+        for i in range(num_misc_gods):
             sphere = self.available_spheres.pop(roll(0, len(self.available_spheres)-1))
             name = self.astrology.language.gen_word(syllables=roll(1, 2), num_phonemes=(3, 20))
             name = lang.spec_cap(name)
@@ -267,7 +267,7 @@ class Pantheon:
                     god.add_spouse(spouse=choice)
 
                     # Kids
-                    for j in xrange(roll(0, 2)):
+                    for j in range(roll(0, 2)):
                         sphere = self.available_spheres.pop(roll(0, len(self.available_spheres)-1))
                         name = self.astrology.language.gen_word(syllables=roll(1, 2), num_phonemes=(3, 20))
                         name = lang.spec_cap(name)

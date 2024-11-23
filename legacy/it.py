@@ -414,8 +414,8 @@ class World(Map):
 
         heights = []
 
-        for xx in xrange(x-1, x+2):
-            for yy in xrange(y-1, y+2):
+        for xx in range(x-1, x+2):
+            for yy in range(y-1, y+2):
                 if self.is_val_xy((xx, yy)):
                     heights.append(self.tiles[xx][yy].height)
 
@@ -429,8 +429,8 @@ class World(Map):
     def get_surrounding_heights(self, coords):
         world_x, world_y = coords
         surrounding_heights = []
-        for x in xrange(world_x-1, world_x+2):
-            for y in xrange(world_y-1, world_y+2):
+        for x in range(world_x-1, world_x+2):
+            for y in range(world_y-1, world_y+2):
                 surrounding_heights.append(self.tiles[x][y].height)
 
         return surrounding_heights
@@ -479,8 +479,8 @@ class World(Map):
         # Make a list of nearby resources at particular world coords
         nearby_resources = []
         nearby_resource_locations = []
-        for wx in xrange(x - distance, x + distance + 1):
-            for wy in xrange(y - distance, y + distance + 1):
+        for wx in range(x - distance, x + distance + 1):
+            for wy in range(y - distance, y + distance + 1):
                 if self.is_val_xy( (wx, wy) ) and self.tiles[wx][wy].res:
                     # Make sure there's a path to get the resource from (not blocked by ocean or whatever)
                     path = libtcod.path_compute(self.rook_path_map, x, y, wx, wy)
@@ -546,7 +546,7 @@ class World(Map):
 
     def setup_world(self):
         # Fill world with empty regions
-        self.tiles = [[Region(x=x, y=y) for y in xrange(self.height)] for x in xrange(self.width)]
+        self.tiles = [[Region(x=x, y=y) for y in range(self.height)] for x in range(self.width)]
         # Initialize the chunks inthe world - method inherited from map_base
         self.setup_chunks(chunk_size=10, map_type='world')
 
@@ -560,7 +560,7 @@ class World(Map):
     def make_heightmap(self):
         hm = libtcod.heightmap_new(self.width, self.height)
         # Start with a bunch of small, wide hills. Keep them relatively low
-        for iteration in xrange(200):
+        for iteration in range(200):
             maxrad = roll(10, 50)
 
             x, y = roll(maxrad, self.width - maxrad), roll(maxrad, self.height - maxrad)
@@ -570,7 +570,7 @@ class World(Map):
                 libtcod.heightmap_dig_hill(hm, x, y, roll(4, 20), roll(10, 30))
 
         # Then add mountain ranges. Should be tall and thin
-        for iteration in xrange(100):
+        for iteration in range(100):
             maxrad = 5
             maxlen = 20 + maxrad
             minheight = 5
@@ -613,8 +613,8 @@ class World(Map):
 
 
         # Add the info from libtcod's heightmap to the world's heightmap
-        for x in xrange(self.width):
-            for y in xrange(self.height):
+        for x in range(self.width):
+            for y in range(self.height):
                 ############# New ####################
                 val = libtcod.noise_get_turbulence(mnoise, [x / div_amt, y / div_amt], octaves, libtcod.NOISE_SIMPLEX)
                 #### For turb map, low vals are "peaks" for us ##############
@@ -665,7 +665,7 @@ class World(Map):
     def calculate_rainfall(self):
         # An ok way to calclate rainfall?
 
-        for y in xrange(self.height):
+        for y in range(self.height):
             # Seed initial rainfall based on lattitude
             if 30 < y < self.height-30 or 20 < abs(y-self.equator):
                 rainfall = -10
@@ -673,7 +673,7 @@ class World(Map):
                 rainfall = 10
 
             # West -> east winds
-            for x in xrange(self.width):
+            for x in range(self.width):
                 self.tiles[x][y].rainfall = rainfall
 
                 if self.tiles[x][y].height <= g.WATER_HEIGHT:
@@ -684,7 +684,7 @@ class World(Map):
                     rainfall = 0
 
             # East -> west winds
-            #for x in xrange(self.width):
+            #for x in range(self.width):
             #    self.tiles[self.width-x][y].rainfall = rainfall
             #
             #    if self.tiles[self.width-x][y].height <= g.WATER_HEIGHT:
@@ -703,8 +703,8 @@ class World(Map):
             found_square = False
             wdist += 1
 
-            for x in xrange(1, self.width - 1):
-                for y in xrange(1, self.height - 1):
+            for x in range(1, self.width - 1):
+                for y in range(1, self.height - 1):
 
                     if self.tiles[x][y].wdist is None:
                         # Only check water distance at 4 cardinal directions
@@ -729,8 +729,8 @@ class World(Map):
             (x, y) = self.mountains.pop(roll(0, len(self.mountains) - 1) )
             # Check if another river already exists nearby, and abort if so
             make_river = True
-            for riv_x in xrange(x - 4, x + 5):
-                for riv_y in xrange(y - 4, y + 5):
+            for riv_x in range(x - 4, x + 5):
+                for riv_y in range(y - 4, y + 5):
                     if self.tiles[riv_x][riv_y].has_feature('river'):
                         make_river = False
                         break
@@ -858,8 +858,8 @@ class World(Map):
         n2scale = 15
         #1576
         ## Map edge is unwalkable
-        for y in xrange(self.height):
-            for x in xrange(self.width):
+        for y in range(self.height):
+            for x in range(self.width):
                 # moist
                 w_val = libtcod.noise_get_fbm(noisemap1, [x / n1div_amt, y / n1div_amt], n1octaves, libtcod.NOISE_SIMPLEX)
                 w_val += .1
@@ -890,8 +890,8 @@ class World(Map):
 
         a = 3 # Used for coloring tiles (each rgb value will vary by +- this #)
 
-        for y in xrange(self.height):
-            for x in xrange(self.width):
+        for y in range(self.height):
+            for x in range(self.width):
                 this_tile = self.tiles[x][y] # minor optimization to avoid lookups
 
                 sc = int(this_tile.height) - 1
@@ -1030,8 +1030,8 @@ class World(Map):
         max_alpha = .9
         hill_excluders = {'mountain', 'temperate forest', 'rain forest'}
 
-        for y in xrange(2, self.height-2):
-            for x in xrange(2, self.width-2):
+        for y in range(2, self.height-2):
+            for x in range(2, self.width-2):
                 this_tile = self.tiles[x][y]
                 if this_tile.region != 'ocean' and self.tiles[x+1][y].region != 'ocean':
                     hdif = this_tile.height / self.tiles[x+1][y].height
@@ -1060,8 +1060,8 @@ class World(Map):
 
         exclude_smooth = {'ocean'}
         # Smooth the colors of the world
-        for y in xrange(2, self.height - 2):
-            for x in xrange(2, self.width - 2):
+        for y in range(2, self.height - 2):
+            for x in range(2, self.width - 2):
                 if not self.tiles[x][y].region in exclude_smooth:
                     neighbors = ((x - 1, y - 1), (x - 1, y), (x, y - 1), (x + 1, y), (x, y + 1), (x + 1, y + 1), (x + 1, y - 1), (x - 1, y + 1))
                     #colors = [g.WORLD.tiles[nx][ny].color for (nx, ny) in neighbors]
@@ -1103,8 +1103,8 @@ class World(Map):
         def do_fill(region, current_region_number):
             region.region_number = current_region_number
 
-        for x in xrange(1, self.width - 1):
-            for y in xrange(1, self.height - 1):
+        for x in range(1, self.width - 1):
+            for y in range(1, self.height - 1):
                 if not self.tiles[x][y].blocks_mov and not self.tiles[x][y].region_number:
                     current_region_number += 1
                     filled_tiles = floodfill(fmap=self, x=x, y=y, do_fill=do_fill, do_fill_args=[current_region_number], is_border=lambda tile: tile.blocks_mov or tile.region_number)
@@ -1143,13 +1143,13 @@ class World(Map):
         self.languages.append(language)
 
         # Adding some ancient languages that are no longer spoken
-        for i in xrange(5):
+        for i in range(5):
             ancient_language = lang.Language()
             self.ancient_languages.append(ancient_language)
 
         ## These guys will be less intelligent and more brute-ish. Generally live in lairs or move into existing empty structures
         num_brute_races = roll(3, 5)
-        for i in xrange(num_brute_races):
+        for i in range(num_brute_races):
             creature_name = language.gen_word(syllables=roll(1, 2), num_phonemes=(2, 10))
             # Shares physical components with humans for now
             phys_info = copy.deepcopy(phys.creature_dict['human'])
@@ -1184,7 +1184,7 @@ class World(Map):
 
     def gen_sentient_races(self):
         ''' Generate some sentient races to populate the world. Very basic for now '''
-        for i in xrange(5):
+        for i in range(5):
             # Throwaway language for now
             race_name_lang = lang.Language()
             creature_name = race_name_lang.gen_word(syllables=roll(1, 2), num_phonemes=(2, 20))
@@ -1207,7 +1207,7 @@ class World(Map):
 
         number_of_cultures = roll(75, 100)
         ## Place some hunter-getherer cultures
-        for i in xrange(number_of_cultures):
+        for i in range(number_of_cultures):
             # Random playable coords
             x, y = random.choice(self.play_tiles)
             # Make sure it's a legit tile and that no other culture owns it
@@ -1220,7 +1220,7 @@ class World(Map):
                 else:
                     # Pick more than one race to be a part of this culture
                     races = []
-                    for j in xrange(2):
+                    for j in range(2):
                         while 1:
                             race = random.choice(self.sentient_races)
                             if race not in races:
@@ -1689,8 +1689,8 @@ class World(Map):
 
             # Build a list of possible sites to move into
             possible_sites = []
-            for x in xrange(city.x-radius, city.x+radius):
-                for y in xrange(city.y-radius, city.y+radius):
+            for x in range(city.x-radius, city.x+radius):
+                for y in range(city.y-radius, city.y+radius):
                     # Make sure there is a valid path to the city
                     if self.get_astar_distance_to(x, y, city.x, city.y) is not None:
                         # Add caves and ruins
@@ -1725,7 +1725,7 @@ class World(Map):
                     hideout_num -= 1
 
             # Otherwise, they can build their own little shacks
-            for i in xrange(hideout_num):
+            for i in range(hideout_num):
                 # Pick a good spot
                 iter = 0
                 while True:
@@ -1748,7 +1748,7 @@ class World(Map):
     def run_history(self, weeks):
         ## Some history...
         #begin = time.time()
-        for i in xrange(weeks * 7):
+        for i in range(weeks * 7):
             self.time_cycle.day_tick()
         #g.game.add_message('History run in %.2f seconds' %(time.time() - begin))
         # List the count of site types
@@ -1771,8 +1771,8 @@ class World(Map):
         # Build FOV map - only roads are walkable here! (will refresh each time a road is built)
         self.road_fov_map = libtcod.map_new(self.width, self.height)
 
-        for x in xrange(self.width):
-            for y in xrange(self.height):
+        for x in range(self.width):
+            for y in range(self.height):
                 libtcod.map_set_properties(self.road_fov_map, x, y, 1, 0)
         self.road_path_map = libtcod.path_new_using_map(self.road_fov_map)
 
@@ -1993,7 +1993,7 @@ class World(Map):
 
             ## Add some drunk walkers!
             dcfg = {'bias':None, 'color':base_color, 'empty_stop':False, 'tile_limit':1000}
-            for i in xrange(5):
+            for i in range(5):
                 walker = DrunkWalker(umap=g.M, x=roll(20, g.M.width-21), y=roll(20, g.M.height-21), cfg=dcfg)
                 walker.drunk_walk()
 
@@ -2116,7 +2116,7 @@ class World(Map):
 
         self.tiles[x][y].char = g.RUINS_TILE
         self.tiles[x][y].char_color = libtcod.black
-        for i in xrange(roll(1, 3)):
+        for i in range(roll(1, 3)):
             building = ruin_site.create_building(zone='residential', type_='hideout', template='TEST', professions=[], inhabitants=[], tax_status=None)
 
 
@@ -2582,11 +2582,11 @@ class City(Site):
     def setup_native_economy(self):
         # Add gatherers and producers based on the slots allocated when we prepared the economy
         for resource, amount in self.resource_slots.iteritems():
-            for i in xrange(amount):
+            for i in range(amount):
                 self.econ.add_agent_based_on_token(resource)
 
         for good, amount in self.industry_slots.iteritems():
-            for i in xrange(amount):
+            for i in range(amount):
                 self.econ.add_agent_based_on_token(good)
 
     def setup_imports(self):
@@ -2774,11 +2774,11 @@ class City(Site):
         self.create_building(zone='market', type_='Market', template='TEST', professions=market_professions, inhabitants=[], tax_status='general')
 
         # Some nobles and estates
-        #for i in xrange(roll(2, 4)):
+        #for i in range(roll(2, 4)):
         #    estate_professions = [Profession(name='Noble', category='noble')]
         #    self.create_building(name='Estate', professions=estate_professions, tax_status='noble')
 
-        for i in xrange(roll(4, 6)):
+        for i in range(roll(4, 6)):
             tavern_professions = [Profession(name='Tavern Keeper', category='commoner'),
                                   Profession(name='Bard', category='commoner')]
             #if roll(0, 1):
@@ -4351,8 +4351,8 @@ def player_order_move():
         # Draw the final location
         locs = []
         # TODO - this is off now with new 2-char-per-tile approach
-        for i in xrange(mx-offset, mx+sq_size+1):
-            for j in xrange(my-offset, my+sq_size+1):
+        for i in range(mx-offset, mx+sq_size+1):
+            for j in range(my-offset, my+sq_size+1):
                 ii, jj = g.game.camera.cam2map(i, j)
                 if not g.M.tile_blocks_mov(ii, jj):
                     locs.append((ii, jj))
@@ -4742,7 +4742,7 @@ class Population:
         for culture in self.sentients:
             for race in self.sentients[culture]:
                 for profession_name in self.sentients[culture][race]:
-                    for i in xrange(self.sentients[culture][race][profession_name]):
+                    for i in range(self.sentients[culture][race][profession_name]):
                         born = g.WORLD.time_cycle.years_ago(roll(20, 45))
                         human = culture.create_being(sex=1, born=born, dynasty=None, important=0, faction=self.faction, wx=self.wx, wy=self.wy, armed=1, race=race)
                         # TODO - this should be improved
@@ -4763,12 +4763,12 @@ class Population:
             g.game.add_message('Patrol route with radius of %i and length of %i generated'%(radius, len(patrol_route)), libtcod.orange)
             px, py = patrol_route[0]
 
-            for i in xrange(3):
+            for i in range(3):
                 figure = allmembers.pop(0)
                 # Adding obj initializes the AI, so we can be ready to be setup for patrolling
                 unblocked_locations = []
-                for x in xrange(px-5, px+6):
-                    for y in xrange(py-5, py+6):
+                for x in range(px-5, px+6):
+                    for y in range(py-5, py+6):
                         if not g.M.tile_blocks_mov(x, y):
                             unblocked_locations.append((x, y))
 
@@ -4782,7 +4782,7 @@ class Population:
         for figure in allmembers: #+ self.captives[:]:
             # Try 200 times to find a good spot in the starting area..
             found_spot = 0
-            for counter in xrange(200):
+            for counter in range(200):
                 if startrect:
                     x, y = roll(startrect.x1, startrect.x2), roll(startrect.y1, startrect.y2)
                 elif startbuilding:
@@ -6709,7 +6709,7 @@ class TimeCycle(object):
 
     def goto_next_week(self):
         days_til_next_week = self.days_per_week - self.current_weekday
-        for i in xrange(days_til_next_week):
+        for i in range(days_til_next_week):
             self.day_tick()
 
     def dayToNight(self):
@@ -6860,15 +6860,15 @@ class TimeCycle(object):
 
     def rapid_tick(self, ticks):
         ticks = ticks
-        for x in xrange(ticks):
+        for x in range(ticks):
             self.tick()
 
     def rapid_hour_tick(self, hours):
-        for x in xrange(hours):
+        for x in range(hours):
             self.hour_tick()
 
     def rapid_month_tick(self, months):
-        for x in xrange(months):
+        for x in range(months):
             self.month_tick()
 
 class Camera:
@@ -6883,8 +6883,8 @@ class Camera:
 
     def get_xy_for_rendering(self):
         ''' Will get the xy points of the camera, skipping every second  '''
-        for y in xrange(self.height):
-            for x in xrange(0, self.width_in_characters, 2):
+        for y in range(self.height):
+            for x in range(0, self.width_in_characters, 2):
                 mx, my = self.cam2map(x, y)
                 yield (x, y, mx, my)
 
@@ -7272,7 +7272,7 @@ class Culture:
 
         # Leader's siblings
         leader_siblings = []
-        for i in xrange(roll(2, 5)):
+        for i in range(roll(2, 5)):
             sex = roll(0, 1)
             born = g.WORLD.time_cycle.years_ago(roll(28, 40))
             sibling = self.create_being(sex=sex, born=born, dynasty=new_dynasty, important=1, faction=faction, wx=wx, wy=wy, race=new_dynasty.race, save_being=1)
@@ -7282,7 +7282,7 @@ class Culture:
         # Wife's siblings
         if wife_is_new_dynasty:
             wife_siblings = []
-            for i in xrange(roll(2, 5)):
+            for i in range(roll(2, 5)):
                 sex = roll(0, 1)
                 born = g.WORLD.time_cycle.years_ago(roll(20, 45))
                 sibling = self.create_being(sex=sex, born=born, dynasty=new_dynasty, important=1, faction=faction, wx=wx, wy=wy, race=new_dynasty.race, save_being=1)
@@ -7294,7 +7294,7 @@ class Culture:
                 sibling.creature.siblings.append(wife)
 
         # have children
-        for i in xrange(roll(1, 3)):
+        for i in range(roll(1, 3)):
             born = g.WORLD.time_cycle.years_ago(roll(1, 10))
             child = wife.creature.have_child(date_born=born)
             all_new_figures.append(child)
@@ -7525,7 +7525,7 @@ class RenderHandler:
 
         g.game.render_handler.render_all(do_flush=1)
 
-        for repetition in xrange(repetitions):
+        for repetition in range(repetitions):
             # Render red
             g.game.render_handler.render_tile(g.game.interface.map_console.con, x, y, g.X_TILE, color, color)
 
@@ -8073,8 +8073,8 @@ class Game:
         g.WORLD.setup_world()
         g.WORLD.gen_sentient_races()
         cult = Culture(color=libtcod.grey, language=lang.Language(), world=g.WORLD, races=g.WORLD.sentient_races)
-        for x in xrange(g.WORLD.width):
-            for y in xrange(g.WORLD.height):
+        for x in range(g.WORLD.width):
+            for y in range(g.WORLD.height):
                 g.WORLD.tiles[x][y].region = 'grass savanna'
                 g.WORLD.tiles[x][y].color = libtcod.Color(95, 110, 68)
                 g.WORLD.tiles[x][y].culture = cult

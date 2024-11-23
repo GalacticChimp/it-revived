@@ -116,26 +116,26 @@ class Map:
         self.chunk_height = int(ceil(self.height/chunk_size))
 
         if map_type == 'world':
-            for x in xrange(self.chunk_width):
+            for x in range(self.chunk_width):
                 col = []
-                for y in xrange(self.chunk_height):
+                for y in range(self.chunk_height):
                     chunk = RegionChunk(x, y)
                     # Loop through the tiles, but ensure we never go outside map bounds
-                    for wx in xrange(x*chunk_size, min(self.width, (x*chunk_size)+chunk_size)):
-                        for wy in xrange(y*chunk_size, min(self.height, (y*chunk_size)+chunk_size)):
+                    for wx in range(x*chunk_size, min(self.width, (x*chunk_size)+chunk_size)):
+                        for wy in range(y*chunk_size, min(self.height, (y*chunk_size)+chunk_size)):
                             chunk.add_tile(self.tiles[wx][wy])
                     col.append(chunk)
 
                 self.chunk_tiles.append(col)
 
         if map_type == 'human':
-            for x in xrange(self.chunk_width):
+            for x in range(self.chunk_width):
                 col = []
-                for y in xrange(self.chunk_height):
+                for y in range(self.chunk_height):
                     chunk = TileChunk(x, y)
                     # Loop through the tiles, but ensure we never go outside map bounds
-                    for wx in xrange(x*chunk_size, min(self.width, (x*chunk_size)+chunk_size)):
-                        for wy in xrange(y*chunk_size, min(self.height, (y*chunk_size)+chunk_size)):
+                    for wx in range(x*chunk_size, min(self.width, (x*chunk_size)+chunk_size)):
+                        for wy in range(y*chunk_size, min(self.height, (y*chunk_size)+chunk_size)):
                             chunk.add_tile(self.tiles[wx][wy])
                     col.append(chunk)
 
@@ -143,5 +143,5 @@ class Map:
 
     def get_nearby_chunks(self, chunk, distance):
         ''' Return nearby chunks bordering which are <distance> away from chunk.x, chunk.y '''
-        return [self.chunk_tiles[cx][cy] for cy in xrange(chunk.y - distance, chunk.y + distance + 1)
-                for cx in xrange(chunk.x - distance, chunk.x + distance + 1) if 0 <= cx < self.chunk_width and 0 <= cy < self.chunk_height]
+        return [self.chunk_tiles[cx][cy] for cy in range(chunk.y - distance, chunk.y + distance + 1)
+                for cx in range(chunk.x - distance, chunk.x + distance + 1) if 0 <= cx < self.chunk_width and 0 <= cy < self.chunk_height]

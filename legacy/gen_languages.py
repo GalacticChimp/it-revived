@@ -425,7 +425,7 @@ class Orthography:
         ''' Replace an instance of a possible grapheme with a new possible grapheme '''
         if phoneme in mapping:
             num_graphemes = mapping[phoneme].count(old)
-            for g in xrange(num_graphemes):
+            for g in range(num_graphemes):
                 mapping[phoneme].remove(old)
                 mapping[phoneme].append(new)
 
@@ -546,7 +546,7 @@ class Language:
         vowels = ALL_VOWELS[:]
         ## Make a list of common vowels
         common_vowels = []
-        for i in xrange(roll(NUM_COMMON_VOWELS[0], NUM_COMMON_VOWELS[1])):
+        for i in range(roll(NUM_COMMON_VOWELS[0], NUM_COMMON_VOWELS[1])):
             common_vowel = vowels.pop(roll(0, len(vowels)-1) )
             common_vowels.append(common_vowel)
 
@@ -678,7 +678,7 @@ class Language:
         #Start by finding onset/offset/whatever by weighted random item in list
         chunk = w_rand(freqlist)
 
-        for entry in xrange(len(desclist[chunk])-1):
+        for entry in range(len(desclist[chunk])-1):
             # Check if entry is directly a phoneme; else make weighted choice from list
             chunk_entry = desclist[chunk][entry]
 

@@ -121,7 +121,7 @@ class CommodityManager:
     def load_yaml(self):
         ''' Load the yaml file containing resource info '''
         with open(os.path.join(YAML_DIRECTORY, 'resources.yml')) as r:
-            resource_info = yaml.load(r)
+            resource_info = yaml.safe_load(r)
 
         # Loop through all resources in the yaml, creating resources and their associated reactions as we go
         for rname in resource_info:
@@ -169,7 +169,7 @@ class CommodityManager:
 
         # Grab yaml file and convert it to a dictionary
         with open(os.path.join(YAML_DIRECTORY, 'materials.yml')) as m:
-            loaded_materials = yaml.load(m)
+            loaded_materials = yaml.safe_load(m)
 
         for material_name in loaded_materials:
             self.materials[material_name] = Material(name=material_name, rgb_color=loaded_materials[material_name]['rgb_color'],
@@ -218,7 +218,7 @@ def import_data():
     global AGENT_INFO, CITY_INDUSTRY_SLOTS, CITY_RESOURCE_SLOTS, COMMODITY_TO_PRODUCER_NAMES, commodity_manager, materials
 
     with open(os.path.join(YAML_DIRECTORY, 'agents.yml')) as a:
-        AGENT_INFO = yaml.load(a)
+        AGENT_INFO = yaml.safe_load(a)
 
     CITY_RESOURCE_SLOTS = {'foods':8, 'cloths':8, 'clays':6, 'ores':8, 'woods':6, 'stones':6}
     CITY_INDUSTRY_SLOTS = {'tools':12, 'clothing':10, 'pottery':10, 'furniture':14, 'cons materials':10, 'armor':2, 'weapons':2}

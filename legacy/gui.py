@@ -160,9 +160,9 @@ class GuiPanel:
         libtcod.console_print(self.con, x, y, topline)
         libtcod.console_print(self.con, x, y2, bottomline)
         # Any way to simplify down boxes?
-        for ny in xrange(y + 1, box_height - 1 + (y)):
+        for ny in range(y + 1, box_height - 1 + (y)):
             libtcod.console_print(self.con, x, ny, vchar)
-        for ny in xrange(y + 1, box_height - 1 + (y)):
+        for ny in range(y + 1, box_height - 1 + (y)):
             libtcod.console_print(self.con, x2, ny, vchar)
 
 
@@ -1082,7 +1082,7 @@ def economy_tab(world, city):
                     cy += 1
                     if cy > 70: break
 
-                for j in xrange(len(agent.last_turn)):
+                for j in range(len(agent.last_turn)):
                     libtcod.console_print(0, 70, ly, agent.last_turn[j])
                     ly += 1
                     if ly > 70: break
@@ -1097,7 +1097,7 @@ def economy_tab(world, city):
                     cy += 1
                     if cy > 70: break
 
-                for j in xrange(len(agent.last_turn)):
+                for j in range(len(agent.last_turn)):
                     libtcod.console_print(0, 70, ly, agent.last_turn[j])
                     ly += 1
                     if ly > 70: break
