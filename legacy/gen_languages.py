@@ -411,12 +411,12 @@ class Orthography:
                         potential_c_rep[cons] = [i]
 
         # Here's where consonants get mapped
-        for consonant, grapheme_list in potential_c_rep.iteritems():
+        for consonant, grapheme_list in potential_c_rep.items():
             if not consonant in self.mapping:
                 grapheme = choice(grapheme_list)
                 self.mapping[consonant] = grapheme
         # Here's where vowels get mapped
-        for vowel, grapheme_list in potential_v_rep.iteritems():
+        for vowel, grapheme_list in potential_v_rep.items():
             if not vowel in self.mapping:
                 grapheme = choice(grapheme_list)
                 self.mapping[vowel] = grapheme
@@ -470,7 +470,7 @@ class Language:
         self.vowel_M = None
 
         # Generate a phonological inventory - but make sure it leaves us with valid onsets/offsets
-        phonological_inventory_size=choice(PHONOLOGICAL_INV_DROP_CHANCES.keys())
+        phonological_inventory_size=choice(list(PHONOLOGICAL_INV_DROP_CHANCES.keys()))
         while 1:
             # This continuously generates a phonological inventory, but makes sure there are
             # always at least 1 valid syllable onset and coda

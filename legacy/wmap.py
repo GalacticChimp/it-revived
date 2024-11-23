@@ -190,12 +190,12 @@ class Wmap(Map):
             self.factions_on_map[obj.creature.faction].add(obj)
 
         # Now add a dmap for each
-        for faction, member_set in self.factions_on_map.iteritems():
+        for faction, member_set in self.factions_on_map.items():
             self.add_dmap(key=faction.name, target_nodes=[(obj.x, obj.y) for obj in member_set], dmrange=g.DIJMAP_CREATURE_DISTANCE)
 
 
             # Make sure all sapients know who their enemies are
-            #for other_faction, other_member_set in self.factions_on_map.iteritems():
+            #for other_faction, other_member_set in self.factions_on_map.items():
             #    if faction.is_hostile_to(other_faction):
             #        g.game.add_message('%s: setting enemy - %s'%(faction.faction_name, other_faction.faction_name), libtcod.color_lerp(faction.color, PANEL_FRONT, .5) )
             #        for obj in member_set:
@@ -219,7 +219,7 @@ class Wmap(Map):
         #def stupid_function(target_nodes):
         #    self.dijmaps[faction.faction_name].update_map(target_nodes)
 
-        for faction, member_set in self.factions_on_map.iteritems():
+        for faction, member_set in self.factions_on_map.items():
             target_nodes = [(obj.x, obj.y) for obj in member_set if obj.creature.status == 'alive' and (obj == g.player or (obj != g.player and obj.local_brain.ai_state != 'idle'))]
             self.dijmaps[faction.name].update_map(target_nodes=target_nodes)
             #update_map_test(self.dijmaps[faction.faction_name], target_nodes)
@@ -681,7 +681,7 @@ class Wmap(Map):
                 if not self.tiles[mx][my].blocks_mov:
                     intensity = 0
                     # Sum all desires for this square, weighted by intensity
-                    for desire, value in g.game.render_handler.debug_active_unit_dijmap.creature.dijmap_desires.iteritems():
+                    for desire, value in g.game.render_handler.debug_active_unit_dijmap.creature.dijmap_desires.items():
                         if g.M.dijmaps[desire].dmap[mx][my] is not None:
                             intensity += int(round(value)) * self.dijmaps[desire].dmap[mx][my]
 
@@ -1464,7 +1464,7 @@ class CityMapGenerator:
                     directions = {(0, -1): newrect.middle_point('n'), (0, 1): newrect.middle_point('s'),
                                   (1, 0): newrect.middle_point('e'), (-1, 0): newrect.middle_point('w')}
 
-                    for (dx, dy), (mpx, mpy) in directions.iteritems():
+                    for (dx, dy), (mpx, mpy) in directions.items():
                         # Go through each direction in turn. If one direction already yielded a door, stop
                         px, py = mpx, mpy
                         path = []

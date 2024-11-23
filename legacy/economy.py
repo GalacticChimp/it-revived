@@ -121,7 +121,7 @@ def economy_test_run():
         #print '------------', i, '--------------'
         economy.run_simulation()
 
-    for token, auction in economy.auctions.iteritems():
+    for token, auction in economy.auctions.items():
         print (token, auction.price_history)
 
     print (economy.get_valid_agent_types())
@@ -130,7 +130,7 @@ def economy_test_run():
 def check_strategic_resources(nearby_resources):
     ''' Checks a set of resources to see if there's enough types of strategic resources '''
     unavailable_types = []
-    for resource_type, resource_token_list in data.commodity_manager.strategic_types.iteritems():
+    for resource_type, resource_token_list in data.commodity_manager.strategic_types.items():
         has_token = False
         for resource_token in resource_token_list:
             if resource_token.name in nearby_resources:
@@ -218,7 +218,7 @@ class Agent(object):
         # Building up a personalized list of commodity bid threshholds, so we don't waste time checking
         # valid categories to bid on later on
         self.personalized_commodity_bid_threshholds = OrderedDict()
-        for commodity_category, threshhold_info in COMMODITY_BID_THRESHHOLDS.iteritems():
+        for commodity_category, threshhold_info in COMMODITY_BID_THRESHHOLDS.items():
             # Don't worry about categories for which we produce a good - we're assumed to have those commodities no matter what
             if commodity_category != self.sold_commodity_category:
                 self.personalized_commodity_bid_threshholds[commodity_category] = threshhold_info
@@ -487,7 +487,7 @@ class Agent(object):
 
         # For every consumed commodity, check how many we have in inventory, and keep track of the minimum number of times
         # we can run the reaction
-        for commodity_type, amount_needed_per_person in chain(self.reaction.commodities_consumed.iteritems(), self.reaction.commodities_required.iteritems()):
+        for commodity_type, amount_needed_per_person in chain(self.reaction.commodities_consumed.items(), self.reaction.commodities_required.items()):
             total_owned = self.count_commodities_of_type(commodity_type, inventory=self.buy_inventory)
             available_reaction_amount = min(int(total_owned / amount_needed_per_person), available_reaction_amount)
 
@@ -502,7 +502,7 @@ class Agent(object):
                 self.input_product_inventory[self.reaction.input_commodity_name] = max(self.reaction.input_amount * available_reaction_amount, 0)
 
             # Also consume other needed goods
-            for commodity_type, amount in self.reaction.commodities_consumed.iteritems():
+            for commodity_type, amount in self.reaction.commodities_consumed.items():
                 self.remove_commodities_of_type(type_of_commodity=commodity_type, inventory=self.buy_inventory, amount_to_remove=available_reaction_amount * amount)
 
             # Tax the production
@@ -633,7 +633,7 @@ class Agent(object):
         commodities = self.get_all_commodities_of_type(type_of_commodity=type_of_commodity, inventory=inventory)
 
         remaining_amount_to_remove = amount_to_remove
-        for commodity_token, amount in commodities.iteritems():
+        for commodity_token, amount in commodities.items():
             removed = min(remaining_amount_to_remove, amount)
             inventory[commodity_token] -=  removed
 
@@ -644,7 +644,7 @@ class Agent(object):
     def get_all_inventory_by_type(self):
         ''' Return a dictionary for all commodities in our (buy) inventory, arranged as commodity_type : amount'''
         inventory_by_type = defaultdict(int)
-        for commodity_name, amount in self.get_buy_inventory_with_stock().iteritems():
+        for commodity_name, amount in self.get_buy_inventory_with_stock().items():
             inventory_by_type[data.commodity_manager.get_actual_commodity_from_name(commodity_name).category] += amount
 
         return inventory_by_type
@@ -655,7 +655,7 @@ class Agent(object):
     def consume_food_and_break_commodities(self):
         ''' Here is where an agent consumes food, (potentially) breaks some items '''
         #### Roll through everything - consume food, and have stuff break ####
-        for commodity_name, amount in self.get_buy_inventory_with_stock().iteritems():
+        for commodity_name, amount in self.get_buy_inventory_with_stock().items():
             # If we're not a farmer, each population eats a food
             if commodity_name == 'food' and self.sold_commodity_name != 'food':
                 self.buy_inventory['food'] -= min(self.population_number, self.buy_inventory['food'])
@@ -678,7 +678,7 @@ class Agent(object):
         our_standard_of_living = normalized_gold / self.buy_economy.cost_of_living
         population_number = self.population_number # Slight optimization by making this local
 
-        for commodity_category, (standard_of_living_threshhold, ideal_number_per_person) in self.personalized_commodity_bid_threshholds.iteritems():
+        for commodity_category, (standard_of_living_threshhold, ideal_number_per_person) in self.personalized_commodity_bid_threshholds.items():
             # Only bid on items which are above our standard of living ratio
             if our_standard_of_living > standard_of_living_threshhold:
                 amount_of_commodity_to_bid = int(population_number * ideal_number_per_person) - inventory_by_type[commodity_category]
@@ -726,7 +726,7 @@ class Agent(object):
 
         # If we already have action queued ...
         #else:
-        #    for token, [bid_price, bid_quantity] in self.future_bids.iteritems():
+        #    for token, [bid_price, bid_quantity] in self.future_bids.items():
         #        self.place_bid(economy=self.buy_economy, token_to_bid=token, bid_price=bid_price, bid_quantity=bid_quantity)
         #    self.future_bids = {}
 
@@ -735,7 +735,7 @@ class Agent(object):
         #self.create_sell(economy=self.buy_economy, sell_commodity=self.sold_commodity_name)
 
         #else:
-        #    for sell_commodity, (sell_price, quantity_to_sell) in self.future_sells.iteritems():
+        #    for sell_commodity, (sell_price, quantity_to_sell) in self.future_sells.items():
         #        self.create_sell(economy=self.buy_economy, sell_commodity=sell_commodity, sell_price=sell_price, quantity_to_sell=quantity_to_sell)
         #    self.future_sells = {}
 
@@ -976,7 +976,7 @@ class Economy:
 
                 ## Main case - loop through all the resources in the rest of the tiles
                 elif resource != 'land':
-                    for tile_resource, amount in region.res.iteritems():
+                    for tile_resource, amount in region.res.items():
                         if resource == tile_resource and region.has_open_slot(resource):
                             region.add_resource_gatherer_to_region(resource_name=resource, agent=agent)
                             return
@@ -1004,7 +1004,7 @@ class Economy:
                     available_resources.append('food')
 
             ##### Normal case - loop through each resource in the region and check whether it's been used yet, and whether there is capacity to add it #####
-            for res, amount in region.res.iteritems():
+            for res, amount in region.res.items():
                 if res not in available_resources and amount:
                     if (not restrict_based_on_available_resource_slots) or (restrict_based_on_available_resource_slots and region.has_open_slot(resource_name=res)):
                         available_resources.append(res)
@@ -1076,14 +1076,14 @@ class Economy:
             agent.create_bids_for_turn()
 
         # Append the difference in taxed commodities (which occured this turn) to the history
-        for commodity_name, collected_taxes_total in self.collected_taxes.iteritems():
+        for commodity_name, collected_taxes_total in self.collected_taxes.items():
             self.collected_taxes_history[commodity_name].append(collected_taxes_total - collected_taxes_tmp[commodity_name])
 
         ## Run the auction
         # Bids / sells should be sorted by price to match the lowest seller with the highest buyer
         # For performance reasons, the lists are sorted opposite as they should be, so that buyers / sellers can be popped
         #  from the end of the list moving backwards (instead of at the front of the list moving forwards)
-        for commodity, auction in self.auctions.iteritems():
+        for commodity, auction in self.auctions.items():
             auction.iterations += 1
             ## Sort the bids by price (should be highest to lowest, but sorting opposite here as mentioned above) ##
             auction.bids = sorted(auction.bids, key=lambda attr: attr.price)
@@ -1186,7 +1186,7 @@ class Economy:
             overall_history.append([])
             overall_bid_history.append([])
             overall_sell_history.append([])
-            for auction in self.auctions.itervalues():
+            for auction in self.auctions.values():
                 overall_history[i].append(auction.price_history[i])
                 overall_bid_history[i].append(auction.bid_history[i])
                 overall_sell_history[i].append(auction.sell_history[i])
@@ -1208,12 +1208,12 @@ class Economy:
         for item in solid + dot:
             name_for_legend = item
             # Check for imported
-            for other_city, commodities in self.owner.imports.iteritems():
+            for other_city, commodities in self.owner.imports.items():
                 if item in commodities:
                     name_for_legend = '{0} (imported)'.format(item)
                     break
             # Check for exported
-            for other_city, commodities in self.owner.exports.iteritems():
+            for other_city, commodities in self.owner.exports.items():
                 if item in commodities:
                     name_for_legend = '{0} (exported)'.format(item)
                     break

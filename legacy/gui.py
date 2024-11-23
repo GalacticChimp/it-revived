@@ -455,7 +455,7 @@ def show_people(world):
         y += 2
         libtcod.console_print(0, x_att_offset, y, 'Traits')
         y += 1
-        for trait, m in selected_person.creature.traits.iteritems():
+        for trait, m in selected_person.creature.traits.items():
             y += 1
             libtcod.console_print(0, x_att_offset, y, tdesc(trait, m))
 
@@ -487,7 +487,7 @@ def show_people(world):
             libtcod.console_print(0, x_list_offset, y + 8,
                                   other_person.creature.owner.fullname() + ' (' + str(opinion) + ')')
             y += 1
-            for reason, amount in total_opinion.iteritems():
+            for reason, amount in total_opinion.items():
                 libtcod.console_print(0, x_list_offset, y + 8, reason + ': ' + str(amount))
                 y += 1
 
@@ -540,7 +540,7 @@ def show_cultures(world, spec_culture=None):
 
         ## Background info, including subsitence and races
         libtcod.console_print(0, 4, 6, 'The {0} are a {1}-speaking {2} culture of {3}.'.format(culture.name, language.name.capitalize(), culture.subsistence, join_list([c.capitalize() for c in culture.races])))
-        traits = [tdesc(trait, m) for (trait, m) in culture.culture_traits.iteritems()]
+        traits = [tdesc(trait, m) for (trait, m) in culture.culture_traits.items()]
         libtcod.console_print(0, 4, 7, 'They are considered {0}'.format(join_list(traits)))
         ## Religion
         libtcod.console_print(0, 4, 9, 'They worship {0} gods in the Pantheon of {1}'.format(len(culture.pantheon.gods), culture.pantheon.gods[0].fulltitle()))
@@ -570,7 +570,7 @@ def show_cultures(world, spec_culture=None):
         y = language_box_y + 1
         g.game.interface.root_console.draw_box(x=41, x2=68, y=y-1, y2=y-1 + 2 + len(language.vocabulary), color=g.PANEL_FRONT)
         libtcod.console_print(0, 43, y, 'Basic {0} vocabulary'.format(language.name))
-        sorted_vocab = [(k, v) for k, v in language.vocabulary.iteritems()]
+        sorted_vocab = [(k, v) for k, v in language.vocabulary.items()]
         sorted_vocab.sort()
         for (eng_word, word) in sorted_vocab:
             y += 1
@@ -790,7 +790,7 @@ def show_civs(world):
             y += 2
 
             # Loop through each type of commodity, show overall supply / demand, and then print out all items of that type
-            for type_of_commodity, auctions in sorted(city.econ.auctions_by_category.iteritems()):
+            for type_of_commodity, auctions in sorted(city.econ.auctions_by_category.items()):
 
                 total_supply_for_this_type = sum(auct.supply for auct in auctions)
                 total_demand_for_this_type = sum(auct.demand for auct in auctions)
@@ -862,7 +862,7 @@ def show_civs(world):
                 agents_condensed.append('{0} (buy)'.format(m.name))
 
             agent_counts = Counter(agents_condensed)
-            agent_counts_sorted = [(k, v) for k, v in agent_counts.iteritems()]
+            agent_counts_sorted = [(k, v) for k, v in agent_counts.items()]
             agent_counts_sorted.sort(key=lambda x: x[1], reverse=True)
 
 
@@ -883,7 +883,7 @@ def show_civs(world):
             y = secotion_2_y
 
             libtcod.console_print(0, 90, y - 1, '-* Imports *-')
-            for other_city, commodities in city.imports.iteritems():
+            for other_city, commodities in city.imports.items():
                 for commodity in commodities:
                     y += 1
                     if y < g.SCREEN_HEIGHT - 5:
@@ -891,7 +891,7 @@ def show_civs(world):
 
             y += 3
             libtcod.console_print(0, 90, y - 1, '-* Exports *-')
-            for other_city, commodities in city.exports.iteritems():
+            for other_city, commodities in city.exports.items():
                 for commodity in commodities:
                     y += 1
                     if y < g.SCREEN_HEIGHT - 5:
@@ -948,17 +948,17 @@ def show_civs(world):
                     libtcod.console_print(0, 85, ny + 3, info)
 
                     ny += 4
-                    for trait, m in figure.creature.traits.iteritems():
+                    for trait, m in figure.creature.traits.items():
                         libtcod.console_print(0, 85, ny + 1, tdesc(trait, m))
                         ny += 1
 
                     ny += 1
-                    for issue, (opinion, reasons) in figure.creature.opinions.iteritems():
+                    for issue, (opinion, reasons) in figure.creature.opinions.items():
                         ny += 1
                         ##
                         s = issue + ': ' + str(opinion)
                         libtcod.console_print(0, 85, ny, s)
-                        for reason, amount in reasons.iteritems():
+                        for reason, amount in reasons.items():
                             ny += 1
                             libtcod.console_print(0, 86, ny, reason + ': ' + str(amount))
 
@@ -1066,18 +1066,18 @@ def economy_tab(world, city):
             #libtcod.console_print(0, 5, y + 5, '{0} since food'.format(agent.turns_since_food))
 
             iy = y
-            for item, amount in agent.input_product_inventory.iteritems():
+            for item, amount in agent.input_product_inventory.items():
                 libtcod.console_print(0, 25, iy, '{0} ({1})'.format(item, amount))
                 iy += 1
                 if iy > 70: break
-            for item, amount in agent.buy_inventory.iteritems():
+            for item, amount in agent.buy_inventory.items():
                 libtcod.console_print(0, 25, iy, '{0} ({1})'.format(item, amount))
                 iy += 1
                 if iy > 70: break
 
             cy, ly = y, y
             if agent in city.econ.agents:
-                for commodity, value in agent.perceived_values[agent.buy_economy].iteritems():
+                for commodity, value in agent.perceived_values[agent.buy_economy].items():
                     libtcod.console_print(0, 45, cy, '{0}: {1} ({2})'.format(commodity, value.center, value.uncertainty))
                     cy += 1
                     if cy > 70: break
@@ -1088,11 +1088,11 @@ def economy_tab(world, city):
                     if ly > 70: break
 
             elif agent in city.econ.buy_merchants + city.econ.sell_merchants and agent.current_location == city.econ:
-                for commodity, value in agent.perceived_values[agent.buy_economy].iteritems():
+                for commodity, value in agent.perceived_values[agent.buy_economy].items():
                     libtcod.console_print(0, 45, cy, '{0} - {1}: {2} ({3})'.format(agent.buy_economy.owner.name, commodity, value.center, value.uncertainty))
                     cy += 1
                     if cy > 70: break
-                for commodity, value in agent.perceived_values[agent.sell_economy].iteritems():
+                for commodity, value in agent.perceived_values[agent.sell_economy].items():
                     libtcod.console_print(0, 45, cy, '{0} - {1}: {2} ({3})'.format(agent.sell_economy.owner.name, commodity, value.center, value.uncertainty))
                     cy += 1
                     if cy > 70: break
@@ -1111,7 +1111,7 @@ def economy_tab(world, city):
 
         y += 2
 
-        for commodity, auction in city.econ.auctions.iteritems():
+        for commodity, auction in city.econ.auctions.items():
             if auction.supply != None and auction.demand != None:
                 libtcod.console_print_left(0, 80, y, libtcod.BKGND_NONE, commodity)
                 libtcod.console_print_left(0, 95, y, libtcod.BKGND_NONE, str(auction.mean_price))

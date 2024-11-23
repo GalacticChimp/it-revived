@@ -109,7 +109,7 @@ class WeaponGenerator:
         # Properties specified just by the weapon type
         properties = WEAPON_PROPERTIES[wtype].copy()
         # Add any other special properties
-        for wproperty, value in special_properties.iteritems():
+        for wproperty, value in special_properties.items():
             if wproperty in properties:
                 properties[wproperty] += value + random.choice((-10, -5, 0, 0, 10, 20))
             else:
@@ -666,7 +666,7 @@ def cache_basic_weapon_types():
         # This returns a dict, formatted {component:['valid', 'component', 'materials']}
         w_materials = get_valid_assembly_materials(object_name=weapon_name, object_dict=blueprint_dict)
         # Now loop through and check whether wood is a valid material
-        for component_name, valid_materials in w_materials.iteritems():
+        for component_name, valid_materials in w_materials.items():
             if not 'wood' in valid_materials:
                 weapon_is_basic = 0
                 break

@@ -487,7 +487,7 @@ class World(Map):
                     new_path_len = libtcod.path_size(self.rook_path_map)
 
                     if new_path_len:
-                        for resource in self.tiles[wx][wy].res.iterkeys():
+                        for resource in self.tiles[wx][wy].res.keys():
                             ## Only add it if it's not already in it, and if we don't have access to it
                             if not resource in nearby_resources: # and not resource in self.native_res.keys():
                                 nearby_resources.append(resource)
@@ -1014,7 +1014,7 @@ class World(Map):
 
                 #### New code - add resources
                 for resource in data.commodity_manager.resources:
-                    for biome, chance in resource.app_chances.iteritems():
+                    for biome, chance in resource.app_chances.items():
                         if biome == this_tile.region or (biome == 'river' and this_tile.has_feature('river')):
                             if roll(1, 1200) < chance:
                                 this_tile.add_resource(resource.name, resource.app_amt)
@@ -2503,7 +2503,7 @@ class City(Site):
         self.object_to_agents_dict = defaultdict(list)
 
         # Add resources to the city, for the purposes of the economy
-        for resource, amount in g.WORLD.tiles[self.x][self.y].res.iteritems():
+        for resource, amount in g.WORLD.tiles[self.x][self.y].res.items():
             self.obtain_resource(resource, amount - 10)
 
         self.acquire_tile(self.x, self.y)
@@ -2567,13 +2567,13 @@ class City(Site):
         # Add economy to city
         self.econ = economy.Economy(native_resources=self.native_res.keys(), local_taxes=g.DEFAULT_TAX_AMOUNT, owner=self)
 
-        for resource_type, amount in data.CITY_RESOURCE_SLOTS.iteritems():
+        for resource_type, amount in data.CITY_RESOURCE_SLOTS.items():
             for resource_class in data.commodity_manager.get_commodities_of_type(resource_type):
                 if resource_class.name in self.native_res:
                     self.resource_slots[resource_class.name] = amount
 
         good_tokens_we_can_produce = economy.list_goods_from_strategic(self.native_res.keys())
-        for good_type, amount in data.CITY_INDUSTRY_SLOTS.iteritems():
+        for good_type, amount in data.CITY_INDUSTRY_SLOTS.items():
             for good_class in data.commodity_manager.get_commodities_of_type(good_type):
                 if good_class.name in good_tokens_we_can_produce:
                     self.industry_slots[good_class.name] = amount
@@ -2581,11 +2581,11 @@ class City(Site):
 
     def setup_native_economy(self):
         # Add gatherers and producers based on the slots allocated when we prepared the economy
-        for resource, amount in self.resource_slots.iteritems():
+        for resource, amount in self.resource_slots.items():
             for i in range(amount):
                 self.econ.add_agent_based_on_token(resource)
 
-        for good, amount in self.industry_slots.iteritems():
+        for good, amount in self.industry_slots.items():
             for i in range(amount):
                 self.econ.add_agent_based_on_token(good)
 
@@ -2594,7 +2594,7 @@ class City(Site):
 
         goods_by_resource_token = data.commodity_manager.get_goods_by_resource_token()
 
-        for city, import_list in self.imports.iteritems():
+        for city, import_list in self.imports.items():
             for commodity in import_list:
 
                 # Make sure to add it to the economy's import tax rates
@@ -2753,7 +2753,7 @@ class City(Site):
             self.territory.append(g.WORLD.tiles[x][y])
 
         # Add any resources
-        for resource, amount in g.WORLD.tiles[x][y].res.iteritems():
+        for resource, amount in g.WORLD.tiles[x][y].res.items():
             self.obtain_resource(resource=resource, amount=amount)
 
     def setup_initial_buildings(self):
@@ -4111,9 +4111,9 @@ def attack_menu(actor, target):
 
                     odds_reasons = []
                     # Add the reasons/numbers contributing to the total odds
-                    for reason, amt in c1.iteritems():
+                    for reason, amt in c1.items():
                         odds_reasons.append('++ {0} ({1})'.format(reason, amt))
-                    for reason, amt in c2.iteritems():
+                    for reason, amt in c2.items():
                         odds_reasons.append('-- {0} ({1})'.format(reason, amt))
 
                     odds.append([listed_combat_move, other_combat_move, total_odds, odds_reasons])
@@ -4171,14 +4171,14 @@ def attack_menu(actor, target):
 
         y = 6
         libtcod.console_print(wpanel.con, atx, y, 'Attack - total: ' + str(sum(attack_mods.values())) )
-        for mod, amt in attack_mods.iteritems():
+        for mod, amt in attack_mods.items():
             y += 1
             libtcod.console_print(wpanel.con, atx, y, mod + ': ' + str(amt) )
 
 
         y = 6
         libtcod.console_print(wpanel.con, atx + 22, y, 'Defense - total: ' + str(sum(defend_mods.values())))
-        for mod, amt in defend_mods.iteritems():
+        for mod, amt in defend_mods.items():
             y += 1
             libtcod.console_print(wpanel.con, atx + 22, y, mod + ': ' + str(amt) )
 
@@ -4656,7 +4656,7 @@ def dbg_faction_relations(faction):
             relations = faction.get_faction_relations(other_faction)
 
             if relations != {}:
-                for reason, amt in relations.iteritems():
+                for reason, amt in relations.items():
                     y += 1
                     libtcod.console_print(con=wpanel.con, x=2, y=y, fmt='   -' + reason + ': ' + str(amt))
 
@@ -4871,17 +4871,17 @@ class Creature:
         self.languages = {}
 
         self.skills = {}
-        for skill, value in phys.creature_dict[self.type_]['creature']['skills'].iteritems():
+        for skill, value in phys.creature_dict[self.type_]['creature']['skills'].items():
             self.skills[skill] = value
 
 
         self.experience = {}
-        for skill, value in self.skills.iteritems():
+        for skill, value in self.skills.items():
             self.experience[skill] = EXPERIENCE_PER_SKILL_LEVEL[value] - 1
 
 
         self.attributes = {}
-        for attribute, value in phys.creature_dict[self.type_]['creature']['attributes'].iteritems():
+        for attribute, value in phys.creature_dict[self.type_]['creature']['attributes'].items():
             self.attributes[attribute] = value
 
         self.alert_sight_radius = g.ALERT_FOV_RADIUS
@@ -5112,7 +5112,7 @@ class Creature:
         ny = j
 
         current_tile_cost = 0
-        for desire, amount in self.dijmap_desires.iteritems():
+        for desire, amount in self.dijmap_desires.items():
             if g.M.dijmaps[desire].dmap[i][j] is not None:
                 current_tile_cost += (g.M.dijmaps[desire].dmap[i][j] * amount)
 
@@ -5124,7 +5124,7 @@ class Creature:
             if g.M.is_val_xy((x, y)):  # and not g.M.tile_blocks_mov(x, y): #not g.M.tiles[x][y].blocked:
                 ## Check each desire, multiply by amount, and save if necessary
                 weighted_desire = 0
-                for desire, amount in self.dijmap_desires.iteritems():
+                for desire, amount in self.dijmap_desires.items():
                     if g.M.dijmaps[desire].dmap[x][y] is not None:
                         weighted_desire += (g.M.dijmaps[desire].dmap[x][y] * amount)
                     ## Only move if we have a reason to
@@ -5792,7 +5792,7 @@ class Creature:
 
 
         ## If we were set to inherit anything, that gets updated now
-        for faction, position in self.inheritance.iteritems():
+        for faction, position in self.inheritance.items():
             heirs = faction.get_heirs(3) # Should ignore us now since we're dead
             # If our position was 1st in line, let the world know who is now first in line
             if position == 1 and heirs != []:
@@ -5928,7 +5928,7 @@ class Creature:
                 reasons['profession'] = prof_opinion
 
             ## Based on personal traits ##
-            for trait, multiplier in self.traits.iteritems():
+            for trait, multiplier in self.traits.items():
                 if trait in g.PERSONAL_OPINIONS[issue]:
                     amount = g.PERSONAL_OPINIONS[issue][trait] * multiplier
                     reasons[trait] = amount
@@ -6045,7 +6045,7 @@ class Creature:
 
             if self.owner == g.player:
                 sites_by_type = Counter([s.type_ for s in sites])
-                tmplist = sorted([(type_, num) for type_, num in sites_by_type.iteritems()], key=lambda x: x[1], reverse=True)
+                tmplist = sorted([(type_, num) for type_, num in sites_by_type.items()], key=lambda x: x[1], reverse=True)
                 tmp = join_list([ct(type_, num, True) for type_, num in tmplist])
 
 
@@ -6064,7 +6064,7 @@ class Creature:
         # Needs to be greatly expanded, and able to see reasons why
         reasons = {}
 
-        for trait, multiplier in self.traits.iteritems():
+        for trait, multiplier in self.traits.items():
             for otrait in other_person.creature.traits:
                 if trait == otrait:
                     reasons['Both ' + trait] = 4 * multiplier
@@ -6076,7 +6076,7 @@ class Creature:
         # Things other than traits can modify this, must be stored in self.extra_relations
         # Basically merge this into the "reasons" dict
         if other_person in self.knowledge['entities']:
-            for reason, amount in self.knowledge['entities'][other_person]['relations'].iteritems():
+            for reason, amount in self.knowledge['entities'][other_person]['relations'].items():
                 reasons[reason] = amount
 
         return reasons
@@ -6166,7 +6166,7 @@ class DijmapSapient:
         ''' Make sure We are not a captive (later, if freed, captives will need to run this routine) '''
         if not self.owner.creature.is_captive():
 
-            for faction, members in g.M.factions_on_map.iteritems():
+            for faction, members in g.M.factions_on_map.items():
                 #g.game.add_message('{0}'.format(faction.name), faction.color)
 
                 if self.owner.creature.faction.is_hostile_to(faction):
@@ -6423,10 +6423,10 @@ class BasicWorldBrain:
         for behavior_path, behavior_base_costs in behavior_paths_costed:
             # Each behavior path gets a running cost total
             total_cost = 0
-            for cost_aspect, base_cost in behavior_base_costs.iteritems():
+            for cost_aspect, base_cost in behavior_base_costs.items():
                 # Go through each trait and see what that trait adds to the total cost
                 cost_multiplier = 1
-                for trait, trait_intensity in figure.creature.traits.iteritems():
+                for trait, trait_intensity in figure.creature.traits.items():
                     cost_multiplier *= TRAIT_INFO[trait]['behavior_modifiers'][cost_aspect]
                     #trait_cost_multiplier = TRAIT_INFO[trait]['behavior_modifiers'][cost_aspect]
                     #total_cost += (base_cost * trait_cost_multiplier)
@@ -6569,7 +6569,7 @@ class BasicWorldBrain:
 
             # If we can threaten the economic output of a tile, flag any economic agents working that tile as unable to work
             if self.owner.creature.threatens_economic_output() and g.WORLD.tiles[wx][wy].territory and self.owner.creature.faction.is_hostile_to(g.WORLD.tiles[wx][wy].territory.faction):
-                for resource, info in g.WORLD.tiles[wx][wy].region.agent_slots.iteritems():
+                for resource, info in g.WORLD.tiles[wx][wy].region.agent_slots.items():
                     for agent in info['agents']:
                         agent.activity_is_blocked = 1
 
@@ -7077,7 +7077,7 @@ class Culture:
     def set_culture_traits(self):
         trait_num = roll(3, 4)
         while trait_num > 0:
-            trait = random.choice(CULTURE_TRAIT_INFO.keys())
+            trait = random.choice(list(CULTURE_TRAIT_INFO.keys()))
 
             for otrait in self.culture_traits:
                 if trait in CULTURE_TRAIT_INFO[otrait]['opposed_traits'] or trait == otrait:
@@ -7361,7 +7361,7 @@ def get_info_under_mouse():
             debug_unit = g.game.render_handler.debug_active_unit_dijmap
             info.append(('{0}: tick = {1}'.format(debug_unit.fullname(), debug_unit.creature.next_tick), libtcod.copper))
             total_desire = 0
-            for desire, amount in debug_unit.creature.dijmap_desires.iteritems():
+            for desire, amount in debug_unit.creature.dijmap_desires.items():
                 if amount < 0: dcolor = libtcod.color_lerp(g.PANEL_FRONT, libtcod.red, amount/100)
                 elif amount > 0: dcolor = libtcod.color_lerp(g.PANEL_FRONT, libtcod.green, amount/100)
                 else: dcolor = g.PANEL_FRONT
@@ -7424,12 +7424,12 @@ def get_info_under_mouse():
             info.append((' ', color))
 
             # Resources
-            for resource, amount in g.WORLD.tiles[x][y].res.iteritems():
+            for resource, amount in g.WORLD.tiles[x][y].res.items():
                 info.append(('{0} ({1})'.format(resource.capitalize(), amount), color))
             info.append((' ', color))
 
             region_slot_info = []
-            for resource_name, slot_info in g.WORLD.tiles[x][y].agent_slots.iteritems():
+            for resource_name, slot_info in g.WORLD.tiles[x][y].agent_slots.items():
                 region_slot_info.append('{0} {1}'.format(len(slot_info['agents']), resource_name))
             joined = join_list(region_slot_info)
             info.append((joined, color))
@@ -7581,7 +7581,7 @@ class RenderHandler:
 
                 # Display inventory
                 inv = Counter(agent.inventory)
-                for item, amount in inv.iteritems():
+                for item, amount in inv.items():
                     y += 1
                     libtcod.console_print(panel4.con, 2, y, '{0}: {1}'.format(item, amount))
                     libtcod.console_print(panel4.con, 30, y, '{0} to {1}'.format(agent.perceived_values[item].center - agent.perceived_values[item].uncertainty, agent.perceived_values[item].center + agent.perceived_values[item].uncertainty))
@@ -7600,7 +7600,7 @@ class RenderHandler:
 
                 y += 2
                 libtcod.console_print(panel4.con, 2, y, '-* Future buys *-')
-                for item, [bid_price, bid_quantity] in agent.future_bids.iteritems():
+                for item, [bid_price, bid_quantity] in agent.future_bids.items():
                     y += 1
                     libtcod.console_print(panel4.con, 2, y, str(bid_quantity) + ' ' + item + ' @ ' + str(bid_price) )
 
@@ -7618,7 +7618,7 @@ class RenderHandler:
 
                 y += 1
                 libtcod.console_print(panel4.con, 2, y, '-* Future sells *-')
-                for item, [sell_price, sell_quantity] in agent.future_sells.iteritems():
+                for item, [sell_price, sell_quantity] in agent.future_sells.items():
                     y += 1
                     libtcod.console_print(panel4.con, 2, y, str(sell_quantity) + ' ' + item + ' @ ' + str(sell_price) )
 
@@ -7746,7 +7746,7 @@ def battle_hover_information():
             header.append('Holding {0}'.format(join_list([indef(item.name) for item in inventory['grasped'] ])))
             header.append('Storing {0}'.format(join_list([indef(item.name) for item in inventory['stored'] ])))
 
-            text = [skill + ': ' + str(value) for skill, value in target.creature.skills.iteritems()]
+            text = [skill + ': ' + str(value) for skill, value in target.creature.skills.items()]
             text.insert(0, target.creature.stance + ' stance')
 
             description = textwrap.wrap(target.description, 40)

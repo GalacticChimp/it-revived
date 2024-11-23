@@ -144,3 +144,149 @@ cffi.py:73 - _libtcod_log_watcher()
    DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
 cffi.py:73 - _libtcod_log_watcher() 
    DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: c:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+_internal.py:69 - _sdl_log_output_function() 
+   DEBUG - ERROR:Couldn't open ./libtcod.cfg
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:910:Initializing an SDL2 renderer.
+_internal.py:69 - _sdl_log_output_function() 
+   INFO - RENDER:Created renderer: direct3d
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.
+pyplot.py:487 -       switch_backend() 
+   DEBUG - Loaded backend tkagg version 8.6.
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+_internal.py:69 - _sdl_log_output_function() 
+   DEBUG - ERROR:Couldn't open ./libtcod.cfg
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:910:Initializing an SDL2 renderer.
+_internal.py:69 - _sdl_log_output_function() 
+   INFO - RENDER:Created renderer: direct3d
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: c:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+_internal.py:69 - _sdl_log_output_function() 
+   DEBUG - ERROR:Couldn't open ./libtcod.cfg
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:910:Initializing an SDL2 renderer.
+_internal.py:69 - _sdl_log_output_function() 
+   INFO - RENDER:Created renderer: direct3d
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.
+pyplot.py:487 -       switch_backend() 
+   DEBUG - Loaded backend tkagg version 8.6.
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: c:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+_internal.py:69 - _sdl_log_output_function() 
+   DEBUG - ERROR:Couldn't open ./libtcod.cfg
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:910:Initializing an SDL2 renderer.
+_internal.py:69 - _sdl_log_output_function() 
+   INFO - RENDER:Created renderer: direct3d
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.
+pyplot.py:487 -       switch_backend() 
+   DEBUG - Loaded backend tkagg version 8.6.
+config.py:17 -             <module>() 
+   DEBUG - 
+
+ -==== New run ====- 
+
+
+__init__.py:341 -              wrapper() 
+   DEBUG - matplotlib data path: C:\Programming\Open Source\Iron Testament\legacy\.venv\Lib\site-packages\matplotlib\mpl-data
+__init__.py:341 -              wrapper() 
+   DEBUG - CONFIGDIR=C:\Users\kamil\.matplotlib
+__init__.py:1509 -             <module>() 
+   DEBUG - interactive is False
+__init__.py:1510 -             <module>() 
+   DEBUG - platform is win32
+__init__.py:341 -              wrapper() 
+   DEBUG - CACHEDIR=C:\Users\kamil\.matplotlib
+font_manager.py:1580 -    _load_fontmanager() 
+   DEBUG - Using fontManager instance from C:\Users\kamil\.matplotlib\fontlist-v390.json
+_internal.py:69 - _sdl_log_output_function() 
+   DEBUG - ERROR:Couldn't open ./libtcod.cfg
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:910:Initializing an SDL2 renderer.
+_internal.py:69 - _sdl_log_output_function() 
+   INFO - RENDER:Created renderer: direct3d
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:121:Creating tileset atlas of pixel size 512x512.
+cffi.py:73 - _libtcod_log_watcher() 
+   DEBUG - libtcod\src\libtcod\renderer_sdl2.c:555:Creating console renderer buffer of pixel size 1704x1056.

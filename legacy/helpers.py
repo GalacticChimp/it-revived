@@ -103,7 +103,7 @@ def condense_list_into_string(list_):
     ''' Input should be a list of strings, output will be a condensed enumeration of the list in descending order (e.g. 5 dogs, 2 cats, and a rabbit) '''
     list_items_by_num = Counter(list_)
     # Sort in descending order
-    descending_items = sorted([(type_, num) for type_, num in list_items_by_num.iteritems()], key=lambda x: x[1], reverse=True)
+    descending_items = sorted([(type_, num) for type_, num in list_items_by_num.items()], key=lambda x: x[1], reverse=True)
     first_number = descending_items[0][1]
     # Count the number of each to string and join the list with commas and "and" if necessary
     count_in_string = join_list([ct(type_, num, True) for type_, num in descending_items])
@@ -296,9 +296,9 @@ def weighted_choice(choices):
 def weighted_dict_choice(d):
     ''' http://stackoverflow.com/questions/2570690/python-algorithm-to-randomly-select-a-key-based-on-proportionality-weight '''
     # Takes a dict of choice:weight pairs as input
-    r = random.uniform(0, sum(d.itervalues()))
+    r = random.uniform(0, sum(d.values()))
     s = 0.0
-    for k, w in d.iteritems():
+    for k, w in d.items():
         s += w
         if r < s: return k
     return k

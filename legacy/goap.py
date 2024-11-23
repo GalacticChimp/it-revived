@@ -501,14 +501,14 @@ class DoReaction(BehaviorBase):
         self.preconditions = [HaveCommodity(commodity=self.reaction.input_commodity_name, quantity=input_quantity, entity=entity)]
 
         ## For consumed items, we mut have enough to fuel the entire reaction
-        for commodity_type, quantity in self.reaction.commodities_consumed.iteritems():
+        for commodity_type, quantity in self.reaction.commodities_consumed.items():
             commodity = random.choice(data.commodity_manager.get_names_of_commodities_of_type(commodity_type=commodity_type))
             quantity_needed_for_this_goal = quantity * self.number_of_reactions
             self.consumed_in_this_reaction[commodity] = quantity_needed_for_this_goal
             self.preconditions.append(HaveCommodity(commodity=commodity, quantity=quantity_needed_for_this_goal, entity=entity))
 
         ## For required items, just having the # specified in the yaml is sufficient, and these do not get consumed in the reaction
-        for commodity_type, quantity in self.reaction.commodities_required.iteritems():
+        for commodity_type, quantity in self.reaction.commodities_required.items():
             commodity = random.choice(data.commodity_manager.get_names_of_commodities_of_type(commodity_type=commodity_type))
             self.preconditions.append(HaveCommodity(commodity=commodity, quantity=quantity, entity=entity))
 
@@ -552,7 +552,7 @@ class DoReaction(BehaviorBase):
                                                         '{0}\'s inventory of {1} was {2} after doing reaction'.format(self.entity.fulltitle(),
                                                         self.reaction.input_commodity_name, self.entity.creature.econ_inventory[self.reaction.input_commodity_name])
 
-            for commodity, quantity_needed_for_this_goal in self.consumed_in_this_reaction.iteritems():
+            for commodity, quantity_needed_for_this_goal in self.consumed_in_this_reaction.items():
                 self.entity.creature.econ_inventory[commodity] -= quantity_needed_for_this_goal
                 assert self.entity.creature.econ_inventory[commodity] >= 0, '{0}\'s inventory of {1} was {2} after doing reaction'.format(self.entity.fulltitle(),
                                                                             commodity, self.entity.creature.econ_inventory[commodity])
@@ -866,7 +866,7 @@ def get_behavior_list_costs(behavior_lists):
         total_costs = defaultdict(int)
         # Cost each aspect (time, distance, etc...) of each behavior
         for behavior in behavior_list:
-            for aspect, cost in behavior.costs.iteritems():
+            for aspect, cost in behavior.costs.items():
                 total_costs[aspect] += cost
 
         all_behaviors_costed.append((behavior_list, total_costs))

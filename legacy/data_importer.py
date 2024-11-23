@@ -232,7 +232,7 @@ def import_data():
     commodity_manager = CommodityManager()
     commodity_manager.load_yaml()
 
-    # for reaction, thing in commodity_manager.reactions.iteritems():
+    # for reaction, thing in commodity_manager.reactions.items():
     #     verb = '(gathered)' if thing.is_raw else '(produced)'
     #     print reaction, verb
     #     print 'input:', thing.commodity_input
