@@ -6,6 +6,8 @@ This is a fork of Josh Coppola's [Iron Testament](https://github.com/joshcoppola
 
 Related Bay12 forum thread: [Iron Testament](http://www.bay12forums.com/smf/index.php?topic=121634.0)
 
+Link to the Unity version: https://github.com/GalacticChimp/it-unity
+
 ## Goals
 ### Original
 Create an interesting and diverse world with some simulation elements, give AI actors unique motivations and behaviors, and allow the player to experience a story formed from these elements
