@@ -1,6 +1,6 @@
 ## Background
 
-This is fork of Josh Coppola's [Iron Testament](https://github.com/joshcoppola/it) repository, original description:
+This is a fork of Josh Coppola's [Iron Testament](https://github.com/joshcoppola/it) repository, original description:
 
 > This is a hobby project where I explore procedural generation, emergent economies, and goal-based AI
 
