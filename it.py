@@ -1825,7 +1825,7 @@ class World(Map):
                     # TODO - convert this to actual tiles and not half-tiles
                     char = ord(self.tiles[mx][my].res.keys()[0][0].capitalize())
                     libtcod.console_put_char_ex(g.game.interface.map_console.con, x, y, char, libtcod.green, libtcod.black)
-                    libtcod.console_put_char_ex(g.game.interface.map_console.con, x+1, y, g.EMPTY_TILE, libtcod.green, libtcod.black)
+                    #libtcod.console_put_char_ex(g.game.interface.map_console.con, x+1, y, g.EMPTY_TILE, libtcod.green, libtcod.black)
         ###########################################################################
 
         self.draw_world_objects()
@@ -2463,7 +2463,7 @@ class Site:
 
             libtcod.console_put_char(g.game.interface.map_console.con, x, y, self.char, libtcod.BKGND_NONE)
             # 2nd half of the tile
-            libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
+           # libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
 
 
     def clear(self):
@@ -3980,7 +3980,7 @@ class Object:
             #set the color and then draw the character that represents this object at its position
             libtcod.console_set_default_foreground(g.game.interface.map_console.con, self.color)
             libtcod.console_put_char(g.game.interface.map_console.con, x, y, self.world_char, libtcod.BKGND_NONE)
-            libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.world_char+1, libtcod.BKGND_NONE)
+            #libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.world_char+1, libtcod.BKGND_NONE)
 
     #### End moving world-coords style ########
 
@@ -3993,7 +3993,7 @@ class Object:
                 #set the color and then draw the character that represents this object at its position
                 libtcod.console_set_default_foreground(g.game.interface.map_console.con, self.display_color)
                 libtcod.console_put_char(g.game.interface.map_console.con, x, y, self.char, libtcod.BKGND_NONE)
-                libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
+               # libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
 
         elif not self.local_brain:
             (x, y) = g.game.camera.map2cam(self.x, self.y)
@@ -4002,7 +4002,7 @@ class Object:
                 libtcod.console_set_default_foreground(g.game.interface.map_console.con, self.shadow_color)
                 #libtcod.console_set_default_foreground(con.con, self.dark_color)
                 libtcod.console_put_char(g.game.interface.map_console.con, x, y, self.char, libtcod.BKGND_NONE)
-                libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
+              #  libtcod.console_put_char(g.game.interface.map_console.con, x+1, y, self.char+1, libtcod.BKGND_NONE)
 
     def clear(self):
         #erase the character that represents this object
@@ -6884,7 +6884,7 @@ class Camera:
     def get_xy_for_rendering(self):
         ''' Will get the xy points of the camera, skipping every second  '''
         for y in range(self.height):
-            for x in range(0, self.width_in_characters, 2):
+            for x in range(0, self.width_in_characters, 1):
                 mx, my = self.cam2map(x, y)
                 yield (x, y, mx, my)
 
@@ -6896,12 +6896,12 @@ class Camera:
 
             if g.game.map_scale == 'world':
                 # Make sure the new camera coordinate won't let the camera see off the map
-                if 0 <= self.x + dx < (g.WORLD.width * 2) - self.width_in_characters:   target_x += dx
+                if 0 <= self.x + dx < g.WORLD.width - self.width_in_characters:   target_x += dx
                 if 0 <= self.y + dy < g.WORLD.height - self.height:                     target_y += dy
 
             if g.game.map_scale == 'human':
                 # Make sure the new camera coordinate won't let the camera see off the map
-                if 0 <= self.x + dx <= (g.M.width * 2) - self.width_in_characters:  target_x += dx
+                if 0 <= self.x + dx <= g.M.width - self.width_in_characters:  target_x += dx
                 if 0 <= self.y + dy <= g.M.height - self.height:                    target_y += dy
 
 
@@ -6912,32 +6912,27 @@ class Camera:
 
     def move_to_location(self, x, y):
         ''' Move camera to a target location '''
-        # Ensure camera X is always even, to prevent some issues from arising no that
-        # each "tile" is two characters wide.
-        if x % 2 != 0:
-            x -= 1
-
         self.x, self.y = x, y
 
 
     def center(self, target_x, target_y):
         #new camera coordinates (top-left corner of the screen relative to the map)
-        x = (target_x * 2) - int(round(self.width_in_characters / 2)) #coordinates so that the target is at the center of the screen
+        x = target_x - int(round(self.width_in_characters / 2)) #coordinates so that the target is at the center of the screen
         y = target_y - int(round(self.height / 2))
 
         #make sure the camera doesn't see outside the map
         x, y = max(0, x), max(0, y)
 
         if g.game.map_scale == 'world':
-            if x > (g.WORLD.width * 2) - self.width_in_characters:
-                x = (g.WORLD.width * 2) - self.width_in_characters
+            if x > (g.WORLD.width) - self.width_in_characters:
+                x = (g.WORLD.width) - self.width_in_characters
             if y > g.WORLD.height - self.height:
                 y = g.WORLD.height - self.height
 
         ## Add FOV compute once it works for the world.
         elif g.game.map_scale == 'human':
-            if x > (g.M.width * 2) - self.width_in_characters:
-                x = (g.M.width * 2) - self.width_in_characters
+            if x > (g.M.width) - self.width_in_characters:
+                x = (g.M.width) - self.width_in_characters
             if y > g.M.height - self.height:
                 y = g.M.height - self.height
 
@@ -6946,16 +6941,12 @@ class Camera:
 
     def map2cam(self, x, y):
         ''' 'convert coordinates on the map to coordinates on the screen '''
-
-        # Awful hack to account for camera "moving" when it actually doesn't (due to 2 characters per "tile")
-        adjusted_x = self.x if self.x % 2 == 0 else self.x - 1
-
-        (x, y) = ((x*2) - adjusted_x, y - self.y)
+        (x, y) = (x - self.x, y - self.y)
         return (x, y)
 
     def cam2map(self, x, y):
         ''' convert coordinates on the screen to coordinates on the map '''
-        (x, y) = (int((x + self.x) * .5), y + self.y)
+        (x, y) = (x + self.x, y + self.y)
         return (x, y)
 
     def click_and_drag(self, mouse):
@@ -7488,8 +7479,9 @@ class RenderHandler:
 
     def render_tile(self, console, x, y, char, color, background_color):
         ''' Renders a tile, accounting for the fact that each "tile" is now 2 characters wide '''
+        #libtcod.console_put_char_ex(console, x+1, y, char, color, background_color)
         libtcod.console_put_char_ex(console, x, y, char, color, background_color)
-        libtcod.console_put_char_ex(console, x+1, y, char+1, color, background_color)
+        
 
     def debug_dijmap_view(self, figure=None):
         if figure is None and self.debug_active_unit_dijmap is not None:
@@ -8358,13 +8350,16 @@ if __name__ == '__main__':
 
     g.init()
 
-    # spritesheet = 't12_test.png' if g.TILE_SIZE == 12 else 't16_exp2.png'
-    spritesheet = 't12_test.png' if g.TILE_SIZE == 12 else 'cp437-thin-8x16_inverted_doubled_mega.png'
+    #spritesheet = 't12_test.png' if g.TILE_SIZE == 12 else 't16_exp2.png'
+    #spritesheet = 't12_test.png' if g.TILE_SIZE == 12 else 'cp437-thin-8x16_inverted_doubled_mega.png'
+    spritesheet = 'cp437-16x16_inverted_mega.png'
     font_path = os.path.join(os.getcwd(), 'fonts', spritesheet)
+    #tileset = tcod.tileset.load_tilesheet(os.path.join(os.getcwd(), 'fonts', spritesheet),32,64)
 
-    # libtcod.console_set_custom_font(font_path, libtcod.FONT_LAYOUT_ASCII_INROW|libtcod.FONT_TYPE_GREYSCALE, 16, 20)
-    libtcod.console_set_custom_font(font_path, libtcod.FONT_LAYOUT_ASCII_INROW|libtcod.FONT_TYPE_GREYSCALE, 32, 64)
+    #libtcod.console_set_custom_font(font_path, libtcod.FONT_LAYOUT_ASCII_INROW|libtcod.FONT_TYPE_GREYSCALE, 16, 20)
+    libtcod.console_set_custom_font(font_path, libtcod.FONT_LAYOUT_ASCII_INROW|libtcod.FONT_TYPE_GREYSCALE, 16, 21)
     libtcod.console_init_root(g.SCREEN_WIDTH, g.SCREEN_HEIGHT, 'Iron Testament v0.5', True, renderer=libtcod.RENDERER_GLSL)
+
     libtcod.mouse_show_cursor(visible=1)
     libtcod.sys_set_fps(g.LIMIT_FPS)
 
